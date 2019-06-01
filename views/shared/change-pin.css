@@ -1,0 +1,8 @@
+.view-change-pin .newPin span {
+	font-weight: 400;
+	font-size:2em;
+}
+
+.view-change-pin input[type=password], .view-change-pin input[type=number] {
+	width:8em;
+}

@@ -1,0 +1,3 @@
+[submodule ".submodules/SWDAPI"]
+	path = .submodules/SWDAPI
+	url = https://github.com/JamesSwift/SWDAPI.git

@@ -1,0 +1,35 @@
+.view-edit-schedule .day {
+    margin-bottom:20px;
+}
+
+
+.view-edit-schedule fieldset {
+    display:block;
+    border:0;
+    padding:0;
+}
+    .view-edit-schedule fieldset:disabled {
+        display:none;
+    }
+
+.view-edit-schedule label {
+    display:inline-block;
+    width:100px;
+    font-size:1.5em;
+}
+.view-edit-schedule label.disabled, .view-edit-schedule select:disabled  {
+    color:#aaa;
+}
+.view-edit-schedule input[type=checkbox] {
+    width:20px;
+    height:20px;
+    margin-right:10px;
+}
+.view-edit-schedule input[type=button] {
+     background-color:white;
+     margin-left:10px;
+}
+
+.view-edit-schedule .add {
+    float:right;
+}

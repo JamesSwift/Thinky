@@ -1,0 +1,197 @@
+{
+    "methods": {
+        "views/fetchViewHTML": {
+            "call": "fetchViewHTML",
+            "src": [
+                "views.php"
+            ]
+        },
+        "views/fetchAllViewHTML": {
+            "call": "fetchAllViewHTML",
+            "src": [
+                "views.php"
+            ]
+        },
+        "accounts/register": {
+            "call": "register",
+            "src": [
+                "accounts.php"
+            ]
+        },
+        "accounts/fetchContactDetails": {
+            "call": "fetchContactDetails",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/updateContactDetails": {
+            "call": "updateContactDetails",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/fetchSecurityQuestions": {
+            "call": "fetchSecurityQuestions",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/updateSecurityQuestions": {
+            "call": "updateSecurityQuestions",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/sendRecoveryEmail": {
+            "call": "sendRecoveryEmail",
+            "src": [
+                "accounts.php"
+            ]
+        },
+        "accounts/validateRecoveryCode": {
+            "call": "validateRecoveryCode",
+            "src": [
+                "accounts.php"
+            ]
+        },
+        "accounts/recoveryResetPassword": {
+            "call": "recoveryResetPassword",
+            "src": [
+                "accounts.php"
+            ]
+        },
+        "accounts/checkEmailVerification": {
+            "call": "checkEmailVerification",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/sendEmailVerification": {
+            "call": "sendEmailVerification",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/completeEmailVerification": {
+            "call": "completeEmailVerification",
+            "src": [
+                "accounts.php"
+            ]
+        },
+        "accounts/changePassword": {
+            "call": "changePassword",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/changePin": {
+            "call": "changePin",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/fetchAddressBook": {
+            "call": "fetchAddressBook",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/changeDefaultAddress": {
+            "call": "changeDefaultAddress",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "accounts/fetchPaymentSources": {
+            "call": "fetchPaymentSources",
+            "src": [
+                "accounts.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "businesses/fetchDetails": {
+            "call": "fetchDetails",
+            "src": [
+                "businesses.php"
+            ]
+        },
+        "businesses/updateDetails": {
+            "call": "updateDetails",
+            "src": [
+                "businesses.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "businesses/overrideSchedule": {
+            "call": "overrideSchedule",
+            "src": [
+                "businesses.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "businesses/authorizeClient": {
+            "call": "authorizeClient",
+            "src": [
+                "businesses.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "businesses/fetchAuthorizedBusinesses": {
+            "call": "fetchAuthorizedBusinesses",
+            "src": [
+                "businesses.php"
+            ]
+        },
+        "businesses/connectStripeAccount": {
+            "call": "connectStripeAccount",
+            "src": [
+                "businesses.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "addresses/lookupAddress": {
+            "call": "lookupAddress",
+            "src": [
+                "addresses.php"
+            ]
+        },
+        "addresses/saveAddressToAccount": {
+            "call": "saveAddressToAccount",
+            "src": [
+                "addresses.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "addresses/archiveAddress": {
+            "call": "archiveAddress",
+            "src": [
+                "addresses.php"
+            ],
+            "requireAuthorizedUser": true
+        },
+        "checkout/testOrder": {
+            "call": "testOrder",
+            "src": [
+                "checkout.php"
+            ]
+        },
+        "checkout/submitOrder": {
+            "call": "submitOrder",
+            "src": [
+                "checkout.php"
+            ],
+            "requireAuthorizedUser": true
+        }
+    },
+    "signedHash": "d07da79a"
+}

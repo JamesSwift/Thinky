@@ -1,0 +1,45 @@
+.view-public-status .logo{
+    width:35%;
+    float:right;
+    max-width:90vw;
+    margin-bottom: 20px;
+}
+
+@media (max-width:550px){
+   .view-public-status .logo{
+        width:100%;
+        float:none;
+        margin-bottom: 20px;
+    }
+}
+
+.view-public-status .opening span {
+    color:red;
+    font-weight:bold;
+    font-size:1.2em;
+    display:inline-block;
+    margin-right:7px;
+}
+
+.view-public-status .opening b {
+    color:#4CAF50;
+    font-size:1.2em;
+    display:inline-block;
+    margin-right:7px;
+}
+
+.view-public-status input[type=submit], .view-public-status .openEarly, .view-public-status .resumeSchedule, .view-public-status .closeEarly  {
+    background-color:green;
+    color:#fff;
+    font-weight:bold;
+}
+.view-public-status .resumeSchedule {
+    background-color:orange;
+}
+.view-public-status .closeEarly {
+    background-color:red;
+}
+
+.view-public-status .publicStatus input[type=button]:disabled {
+    opacity:0.3;
+}

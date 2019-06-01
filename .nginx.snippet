@@ -1,0 +1,5 @@
+#Route all unknown files through index.php
+
+location / {
+        try_files $uri $uri/ /index.php;
+}

@@ -1,0 +1,10 @@
+{
+    "settings": {
+        "db": {
+            "dsn": "mysql:host=localhost;dbname=thinky",
+            "user": "thinky",
+            "pass": "thinky"
+        }
+    },
+    "signedHash": "0bb64fe8"
+}

@@ -1,0 +1,14 @@
+.view-override-schedule label {
+    display:inline-block;
+}
+
+.view-override-schedule input[type=submit] {
+    background-color:green;
+    font-weight:bold;
+    color:white;
+}
+
+.view-override-schedule .action-close input[type=submit] {
+     background-color: red;   
+}
+    

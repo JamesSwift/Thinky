@@ -1,0 +1,360 @@
+html, body {
+    margin:0px;
+    padding:0px;
+}
+
+body, input,textarea,select,option,button {
+    font-family: sans-serif;
+    font-weight:300;
+}
+input,textarea,select {
+    font-size:1.1em;
+    border: 1px solid #eee;
+    border-radius: 3px;    
+    margin:4px;
+    padding:4px;
+    box-sizing: border-box;
+}
+input[type=button], input[type=submit], .button, button {
+    background-color:#eee;
+    color:black;
+    border:0px;
+    padding:5px;
+    box-shadow:1px 1px 2px rgba(107, 107, 107, 0.5); 
+}
+input[type=button]:hover, input[type=submit]:hover, .button:hover {
+    transition:all 0.1s;
+    box-shadow:2px 2px 2px rgba(120, 120, 120, 0.6);
+    text-decoration:none !important;
+}
+
+a {
+    text-decoration:none;
+    color:#005b96;
+}
+a:hover {
+    text-decoration: underline;
+}
+img {
+    border:0;
+}
+h1,h2,h3{
+    margin-bottom:5px;
+    font-weight:300;
+}
+
+
+
+
+
+
+
+#mask {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:90;
+    background-color:#ccc;
+    background-color:rgba(230, 230, 230, 0.7);
+}
+
+#modals>div, .modal {
+    position: fixed;
+    bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);    
+    z-index:100;
+    background-color:white;
+    border-radius:5px;
+    padding:20px;
+    box-shadow: 0px 0px 10px #a9a9a9;
+    box-sizing:border-box;
+    width:500px;
+    min-height:60px;
+    max-width:95vw;
+    max-height:88vh;
+    overflow:auto;
+    opacity:1;
+}
+
+#modals .close {
+    position:absolute;
+    top:4px;
+    right:10px;
+    font-size:1.3em;
+    text-decoration:none;
+    color:#000;
+    display:block;
+    padding:10px;
+}
+    #modals .close:hover {
+         color:#555;
+         transition:color 0.2s;
+    }
+    
+#modals>div h1:first-of-type, h2:first-of-type  {
+    margin-top:0px;
+}
+
+
+.fadeIn {
+    opacity:1;
+    transition: opacity 100ms;
+}
+.fadeOut {
+    opacity :0 !important;
+    transition: opacity 100ms;
+}
+.display-none{
+    opacity:0;
+    display:none !important;
+}
+.display {
+    display:inherit;
+    opacity:0;
+}
+
+
+
+
+
+#loading {
+    position:fixed;
+    top:50%;
+    left:50%;
+    z-index:100;
+    color:blue;
+    transform: translate(-50%,-50%);
+    text-align:center;
+}
+
+.loader {
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    position: relative;
+    border-top: 1.1em solid rgba(200, 200, 200, 0.3);
+    border-right: 1.1em solid rgba(220, 220, 220, 0.3);
+    border-bottom: 1.1em solid rgba(200, 200, 200, 0.3);
+    border-left: 1.1em solid rgba(180, 180, 255, 0.7);
+    animation: spin 1.5s infinite cubic-bezier(0.23, 0.41, 0.57, 0.29);
+    box-shadow: 0 0 10px #ccc;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.formError {
+    border:2px solid red;
+}
+
+
+.formAlert {
+    background-color: #ffffca;
+    border-radius: 5px;
+    padding:10px;
+    margin:10px;
+    position:absolute;
+    font-size:12pt;
+    display:block;
+	border:3px solid #b7b7b7;
+}
+
+.formAlert:before, .formAlert:after {
+    content: "";
+    width: 0; 
+    height: 0; 
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+	border-bottom: 14px solid #b7b7b7;
+    position: absolute;
+    top: -14px;
+    left: 20px;
+}
+
+.formAlert:after {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ffffca;
+    position: absolute;
+    top: -10px;
+    left: 24px;
+}
+
+
+.help-icon {
+    float:right;
+    text-align: center;
+    background-color: #62b6c1;
+    border-radius: 50%;
+    font-weight:400;
+    width: 22px;
+    height: 22px;
+    font-size: 14px;
+    line-height: 22px;
+    vertical-align: middle;
+    color:#fff;
+    text-decoration:none;
+    transition:all 0.1s;
+}
+
+.help-icon:hover {
+    text-decoration:none !important;
+    background-color: #ced;
+    color:black;
+}
+
+span.currency {
+    position:relative;
+    left:9px;
+    margin-right:-10px;
+    
+    transform:translate(10px, 11px);
+}
+
+input.currency {
+    padding-left:18px;
+    max-width:75px;
+}
+
+.clear {
+    clear:both;
+}
+
+#modals>#multiUserLogin {
+    padding:0;   
+    padding-top:13px;
+}
+
+#modals>#multiUserLogin .close {
+     top:0px;   
+     right:8px;
+}
+
+#multiUserLogin>.tab, #multiUserLogin>.spacer {
+    float:left;
+    border:1px solid #ccc;   
+    color:#888;
+    background-color:#f4f4f4;
+    padding:7px;
+    height:35px;
+    font-size:1em;
+    box-sizing: border-box;
+    width: calc( calc(100% - 82px) / 2 );
+    display:block;
+    transition:background 0.5s;
+    border-radius: 5px 5px 0 0;
+}
+
+#multiUserLogin>.spacer {
+     border:0;
+     border-bottom:1px solid #ccc;
+     box-sizing: border-box;
+     background:transparent;
+     width: 15px;
+}
+
+#multiUserLogin>.spacer.wide {
+    width: 52px;
+}
+
+#multiUserLogin>.tab.active {
+    border-bottom:0;
+    color:black;
+    background-color:white;
+}
+
+#multiUserLogin>.tab:hover {
+    background:#f2f2ff;
+    text-decoration:none;
+    color:black;
+}
+
+#multiUserLogin>.view {
+    padding:25px;
+    background:white;
+}
+
+#multiUserLogin .loginView, #multiUserLogin .pinView {
+    padding-top:20px;
+    clear:both;
+}
+
+
+#multiUserLogin .pinError, #loginError {
+    margin-top:20px;
+}
+
+#multiUserLogin td {
+    padding-right:10px;
+    padding-left:0px;
+}
+#multiUserLogin td:first-of-type{
+    width:50px;
+}
+
+#multiUserLogin td:last-of-type{
+    padding-right:0px;   
+}
+
+#multiUserLogin table {
+    margin-bottom:15px;
+    width: 100%;
+}
+
+#multiUserLogin input[type=text], #multiUserLogin input[type=password] {
+    box-sizing:border-box;
+    width:95%;
+}
+
+#multiUserLogin .forgot {
+    margin-top:10px;
+    float:right; 
+}
+
+#multiUserLogin .pin {
+    width:160px !important;
+}
+
+#multiUserLogin .pinView {
+    text-align:center;
+}
+
+#multiUserLogin .users {
+    margin-bottom:20px;
+}
+
+
+#multiUserLogin .users a {
+    display:inline-block;
+    width:46%;
+    margin:2%;
+    box-sizing: border-box;
+    padding:15px;
+    border-radius:5px;
+    transition: all 0.2s;
+    font-weight:bold;
+    color:black;
+}
+
+#multiUserLogin .users a:hover {
+    background:#aaa;
+}
+
+#multiUserLogin .users a.active {
+    border: 2px solid #149326;
+}
+
+#multiUserLogin .osk input {
+    width:60px;
+    height:60px;
+    
+}

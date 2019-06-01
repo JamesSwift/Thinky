@@ -1,0 +1,297 @@
+#page {
+	max-width:800px;
+	min-height:calc( 100vh - 280px );
+	margin:0 auto;
+	padding:10px;
+	position:relative;
+}
+
+header {
+	margin-bottom: 15px;
+	padding: 15px;
+	box-shadow: 0 0 11px 0px #c2c2c2
+}
+
+header>div {
+	max-width:800px;
+	margin:0 auto;
+}
+
+header h1 {
+	margin:0;
+	font-size:1em;
+}
+#title {
+	font-size:3.7em;
+	color:black;
+	text-decoration:none;
+}
+
+#menu {
+	text-align:left;
+	display:block;
+	margin-top:10px;
+	padding-top:15px;
+	clear:both;
+}
+
+#menu nav {
+	display:inline-block;
+}
+
+#menu nav.right {
+	float:right;
+}
+
+#menu a {
+	color:black;
+	font-size:1.2em;
+	padding: 0px 0px;
+	padding-right:12px;
+}
+
+#menu a:last-child {
+	padding:0;
+}
+
+#menu nav.right a {
+	padding-right:0;
+	padding-left:9px;
+}
+
+#menu nav.right a:first-child {
+	padding:0;
+}
+
+header .menuIcon {
+	display:none;
+}
+
+#menuMask {
+	display:none;
+}
+
+
+@media ( max-width:500px){
+	header {
+		padding:10px 0;
+		padding-bottom:5px;
+		margin-bottom:0;
+		box-shadow: 0 0 7px #ccc;
+		line-height:5vw;
+	}
+
+	header .menuIcon {
+		display:block;
+		float:left;
+		width:12vw;
+		font-size:7vw;
+		line-height:10vw;
+		color:#686868;
+		cursor:pointer;
+		text-align:center;
+	}
+
+	header #menu {
+		margin:0px;
+		display:block;
+		z-index:20;
+		position:fixed;
+		top:0;
+		left:-100vw;
+		bottom:0;
+		background-color:white;
+		width:200px;
+		max-width:90vw;
+		transition:all 0.2s;
+		overflow:auto;
+		box-shadow:0 5px 9px #ccc;
+		padding:10px;
+	}
+
+		header #menu.slideIn{
+			left:0;
+		}
+
+
+	#page {
+		min-height:calc( 100vh - 28vw );
+	}
+
+	#title {
+		font-size:7vw;
+		line-height:10vw;
+	}
+	#menu nav {
+		text-align:left;
+		display:block;
+		float:none !important;
+	}
+
+	#menuMask {
+		position:fixed;
+		top:0;
+		left:-500vw;
+		bottom:0;
+		width:100%;
+		display:block;
+		z-index:10;
+		transition:all 0.2s;
+		background:rgba(85, 85, 85, 0.6);
+		}
+
+		#menuMask.slideIn {
+			left:0;
+		}
+
+		#menuMask .close {
+			position:absolute;
+			top:5px;
+			right:25px;
+			font-size:1.3em;
+			color:#000;
+			display:block;
+			padding:5px;
+		}
+
+	header #menu a {
+		display:block;
+		padding:5px;
+		font-weight:400;
+		padding:10px !important;
+		margin-bottom:10px;
+		text-decoration: none;
+		transition:all 0.2s;
+	}
+		header #menu a:hover {
+			background-color:#bbb;
+		}
+
+}
+
+#content {
+	position:relative;
+	font-size:1.15em;
+
+}
+
+#IGNOREcontent>div {
+	position:absolute;
+	width:100%;
+	top:0px;
+	left:0px;
+}
+footer {
+	padding:15px;
+	text-align:center;
+	margin-top:40px;
+	box-shadow:0 0 7px 0px #c2c2c2;
+	color:#aaa;
+	font-size:0.9em;
+}
+	footer p {
+		display:inline-block;
+		margin:5px;
+		margin-right:20px;
+	}
+
+
+#gdprConsent {
+	width:705px;
+}
+#gdprConsent h2 {
+	margin-top:0;
+}
+
+#gdprConsent>div {
+	margin-bottom:20px;
+}
+
+#gdprConsent>div>a {
+	color:black;
+}
+#gdprConsent ul {
+	font-size:0.9em;
+	max-height:0;
+	overflow:hidden;
+	margin:0;
+	transition:all 0.5s;
+}
+
+#gdprConsent .other-buttons {
+	overflow:hidden;
+	margin:0;
+	margin-top:20px;
+	max-height:0;
+	transition:all 0.5s;
+}
+#gdprConsent .other-options {
+	display:block;
+	margin-top:25px;
+}
+#gdprConsent .all {
+	background-color:green;
+	font-weight:400;
+	padding:8px;
+	color:white;
+	float:right;
+}
+
+#gdprConsent .small {
+	font-size:0.9em;
+}
+#gdprConsent .slideDown {
+	max-height:400px;
+}
+
+
+#login {
+	width:400px;
+	line-height:30px;
+}
+#loginError {
+	margin-top:20px;
+}
+#login td {
+	padding-right:10px;
+	padding-left:0px;
+}
+#login td:first-of-type{
+	width:50px;
+}
+
+#login td:last-of-type{
+	padding-right:0px;
+}
+
+#login table {
+	margin-bottom:15px;
+	width: 100%;
+}
+
+#login input[type=text], #login input[type=password] {
+	box-sizing:border-box;
+	width:100%;
+}
+
+#login span {
+	float:right;
+}
+
+.navigation-link{
+	display:inline-block;
+	text-decoration:none;
+	padding:7px;
+	font-size:1.4em;
+	color:#555;
+	margin-bottom:10px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	box-shadow: 2px 1px 2px #ddd;
+	transition: all 0.2s;
+}
+	.navigation-link:hover {
+		background-color:#ffe;
+		color:#333;
+	}
+

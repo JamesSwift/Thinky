@@ -1,0 +1,94 @@
+{
+    "404": {
+        "match": "/404",
+        "title": "Not Found",
+        "cache": false
+    },
+    "403": {
+        "match": "/403",
+        "title": "Access Denied",
+        "cache": false
+    },    
+    "register": {
+        "match": "/register",
+        "title": "Create an Account",
+        "cache": false
+    },
+    "account": {
+        "match": "/accounts/:userID/",
+        "title": "My Account",
+        "cache": false
+    },
+    "account-details": {
+        "match": "/accounts/:userID/contact-details",
+        "title": "My Account Contact Details",
+        "cache": false
+    },
+    "address-book": {
+        "match": "/accounts/:userID/address-book",
+        "title": "My Addresses",
+        "cache": false
+    },
+    "security-questions": {
+        "match": "/account/security-questions",
+        "title": "My Security Questions",
+        "cache": false
+    },
+    "account-recovery1": {
+        "match": "/account/recovery",
+        "title": "Forgotten Password",
+        "cache": false
+    },
+    "account-recovery2": {
+        "match": "/account/recovery/:id/:code/",
+        "title": "Reset Your Account Password",
+        "cache": false
+    },
+    "verify-email1": {
+        "match": "/account/verify-email",
+        "title": "Email Address Verification",
+        "cache": false
+    },     
+    "verify-email2": {
+        "match": "/account/verify-email/:id/:code/",
+        "title": "Complete Your Email Address Verification",
+        "cache": false
+    },
+    "change-password": {
+        "match": "/account/change-password",
+        "title": "Change Your Account Password",
+        "cache": false
+    },
+    "change-pin": {
+        "match": "/account/change-pin",
+        "title": "Change Your Account PIN",
+        "cache": false
+    },     
+    "stripe-connect": {
+        "match": "/stripe-connect",
+        "title": "Connect Your Stripe Account",
+        "cache": false
+    },
+    "business-management": {
+        "match": "/business-management/:businessID/",
+        "title": "Business Management"
+    },
+    "override-schedule": {
+        "match": "/business-management/:businessID/override-schedule/:action",
+        "title": "Override Your Business Schedule"
+    },
+    "public-status": {
+        "match": "/business-management/:businessID/public-status",
+        "title": "Alter the open or closed status of your business"
+    },  
+    "edit-schedule": {
+        "match": "/modals/edit-schedule",
+        "title": "Edit a Schedule",
+        "cache": false
+    },
+    "address-picker": {
+        "match": "/modals/address-picker/",
+        "title": "Select a Delivery Address",
+        "cache": false
+    }    
+}

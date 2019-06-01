@@ -1,0 +1,8 @@
+.view-account ul {
+	list-style-type: none;
+	padding:0;
+}
+
+.view-account li {
+	padding:5px 0;
+}

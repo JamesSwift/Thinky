@@ -1,0 +1,14 @@
+{
+    "home": {
+        "match": "/",
+        "title": "Home"
+    },
+    "about": {
+        "match": "/about",
+        "title": "About Thinky"
+    },
+    "privacy": {
+        "match": "/privacy",
+        "title": "Privacy Policy"
+    }
+}

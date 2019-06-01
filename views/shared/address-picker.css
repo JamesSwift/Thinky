@@ -1,0 +1,61 @@
+.view-address-picker h2 {
+    margin-top:0px;
+    border-bottom: 1px solid #333;
+}
+
+.view-address-picker h3 {
+	font-weight:400;
+	padding:5px 0;
+    border-bottom: 1px solid #333;
+	margin:5px 0;
+	margin-bottom:15px;
+}
+
+.view-address-picker .saved {
+    margin-bottom:25px;
+}
+
+.view-address-picker small {
+	color:#777;
+}
+
+.view-address-picker .note {
+	float:right;
+	line-height:40px;
+}
+
+.view-address-picker .create input.search, .view-address-picker .create .add {
+	background-color:#8bc34a;
+	color:white;
+	font-weight:bold;
+}
+.view-address-picker table {
+    width:100%;
+    line-height:1.8em;
+}
+
+.view-address-picker .country, .view-address-picker input[type=text], .view-address-picker textarea {
+	width:90%;
+}
+
+.view-address-picker .create td {
+	padding-bottom:5px;
+}
+
+.view-address-picker .create td:first-child{
+	min-width:80px;
+    font-weight:400;
+	vertical-align:top;
+}
+
+.view-address-picker .unavailable {
+    color:#777; 
+}
+
+.view-address-picker .create.search .extra {
+	display:none;
+}
+
+.view-address-picker .create.extra .search {
+	display:none;
+}
