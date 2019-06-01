@@ -2,6 +2,8 @@
 
 function validateUserInput($data, $required=[], $authInfo=null){
 	 
+	global $root;
+	
 	$errors = [];
 	
 	//Title
@@ -222,7 +224,7 @@ function validateUserInput($data, $required=[], $authInfo=null){
 	//Check recaptcha
 	if (isset($data['recaptchaResponse'])){
 		$params = [
-			'secret'    => "6LfVFzYUAAAAAIHyxDy9ggYp-XA_BnrhyfK4FpoZ",
+			'secret'    => file_get_contents($root."/config/googleRecaptchaSecret.txt"),
 			'response'  => $data['recaptchaResponse']
 		];
 		
