@@ -1,0 +1,6 @@
+{
+	"id": "security-questions",
+	"match": "/account/security-questions",
+	"title": "My Security Questions",
+	"cache": false
+}

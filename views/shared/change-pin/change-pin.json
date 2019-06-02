@@ -1,0 +1,6 @@
+{
+	"id": "change-pin",
+	"match": "/account/change-pin",
+	"title": "Change Your Account PIN",
+	"cache": false
+}

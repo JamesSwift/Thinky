@@ -1,0 +1,6 @@
+{
+	"id": "account-recovery1",
+	"match": "/account/recovery",
+	"title": "Forgotten Password",
+	"cache": false
+}

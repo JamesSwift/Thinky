@@ -1,0 +1,6 @@
+{
+	"id": "edit-schedule",
+	"match": "/modals/edit-schedule",
+	"title": "Edit a Schedule",
+	"cache": false
+},

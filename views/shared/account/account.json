@@ -1,0 +1,6 @@
+{
+	"id": "account",
+	"match": "/accounts/:userID/",
+	"title": "My Account",
+	"cache": false
+}

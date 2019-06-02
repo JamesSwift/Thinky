@@ -1,0 +1,6 @@
+{
+	"id": "register",
+	"match": "/register",
+	"title": "Create an Account",
+	"cache": false
+}

@@ -1,0 +1,6 @@
+{
+	"id": "account-recovery2",
+	"match": "/account/recovery/:id/:code/",
+	"title": "Reset Your Account Password",
+	"cache": false
+}

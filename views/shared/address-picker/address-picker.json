@@ -1,0 +1,6 @@
+{
+	"id": "address-picker",
+	"match": "/modals/address-picker/",
+	"title": "Select a Delivery Address",
+	"cache": false
+}

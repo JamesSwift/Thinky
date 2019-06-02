@@ -1,0 +1,6 @@
+{
+	"id": "stripe-connect",
+	"match": "/stripe-connect",
+	"title": "Connect Your Stripe Account",
+	"cache": false
+}

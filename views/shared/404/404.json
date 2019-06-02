@@ -1,0 +1,6 @@
+{
+	"id": "404",
+	"match": "/404",
+	"title": "Not Found",
+	"cache": false
+}
