@@ -2,5 +2,5 @@
 	"id": "address-book",
 	"match": "/accounts/:userID/address-book",
 	"title": "My Addresses",
-	"cache": false
+	"requireAuthorizedUser": true
 }

@@ -1,51 +1,44 @@
 /* global u,app,controller */
-u.waitForObjects(["controller", "controller.api"], function(){
 
-    controller.registerView("change-password", "/account/change-password", function(viewVariables){
-    
-        var self = this,
-            form = this.container.querySelector("form"),
-            errorBox = self.container.querySelector(".detailsError");
-            
-     	//Link form inputs to validateData
-        u.form.linkInputsToValidator(form);
-        
-        //Setup form to submit via api
-        form.onsubmit = function(e){
-			e.preventDefault();
+var self = this,
+	form = this.container.querySelector("form"),
+	errorBox = self.container.querySelector(".detailsError");
+	
+//Link form inputs to validateData
+u.form.linkInputsToValidator(form);
 
-			//Check validity of form
-			if (!u.form.validate(form)){
-			    return false;
-			}
-			
-			errorBox.innerHTML = "";
-			
-			u.loading.push();
-				
-			//collect the data
-			var data = u.form.getValues(form);
+//Setup form to submit via api
+form.onsubmit = function(e){
+	e.preventDefault();
+
+	//Check validity of form
+	if (!u.form.validate(form)){
+		return false;
+	}
+	
+	errorBox.innerHTML = "";
+	
+	u.loading.push();
 		
-			self.authenticatedApiRequest(
-			    "accounts/changePassword", 
-			    data, 
-			    function(response){
-				    u.loading.pop();
-	   		    	errorBox.innerHTML = "Your new password has been saved.";
-				    form.reset();
-				    form.style.display="none";
-				}, 
-				u.standardFailureHandler(errorBox, form)
-			);
-        }        
-        
-		self.render();
-		
-        //Define things to do before closing
-    	this.beforeClose = function(){
-    		form.reset();   
-    	}
-    }, {
-        requireAuthorizedUser: true
-    });
-});
+	//collect the data
+	var data = u.form.getValues(form);
+
+	self.authenticatedApiRequest(
+		"accounts/changePassword", 
+		data, 
+		function(response){
+			u.loading.pop();
+			errorBox.innerHTML = "Your new password has been saved.";
+			form.reset();
+			form.style.display="none";
+		}, 
+		u.standardFailureHandler(errorBox, form)
+	);
+}        
+
+self.render();
+
+//Define things to do before closing
+this.beforeClose = function(){
+	form.reset();   
+}

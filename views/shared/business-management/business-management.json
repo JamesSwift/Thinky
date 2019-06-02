@@ -1,5 +1,6 @@
 {
 	"id": "business-management",
 	"match": "/business-management/:businessID/",
-	"title": "Business Management"
+	"title": "Business Management",
+	"requireAuthorizedUser": true
 }

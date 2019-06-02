@@ -1,5 +1,6 @@
 {
 	"id": "public-status",
 	"match": "/business-management/:businessID/public-status",
-	"title": "Alter the open or closed status of your business"
+	"title": "Alter the open or closed status of your business",
+	"requireAuthorizedUser": true
 }

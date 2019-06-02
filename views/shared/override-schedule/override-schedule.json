@@ -1,5 +1,6 @@
 {
 	"id": "override-schedule",
 	"match": "/business-management/:businessID/override-schedule/:action",
-	"title": "Override Your Business Schedule"
+	"title": "Override Your Business Schedule",
+	"requireAuthorizedUser": true
 }

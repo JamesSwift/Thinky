@@ -2,5 +2,5 @@
 	"id": "account-details",
 	"match": "/accounts/:userID/contact-details",
 	"title": "My Account Contact Details",
-	"cache": false
+	"requireAuthorizedUser": true
 }
