@@ -1,23 +1,26 @@
 <?php
+
 use \JamesSwift\SWDAPI\Response;
+
 
 function fetchAllViewHTML($data, $authInfo){
     
     global $root;
+    require_once($root."/models/thinky.php");
     
     //Enclose ob in function closure to avoid contaimnation of variables
-    function getContent($__id__id__, $__context__){
+    function getContent($__FILE__){
         global $root;
         ob_start();
-        if (is_file($root."/views/".$__context__."/".$__id__id__.".php")){
-            require($root."/views/".$__context__."/".$__id__id__.".php");
+        if (is_file($__FILE__)){
+            require($__FILE__);
         }
         return ob_get_clean();  
     }
     
     
     //Check which context to load
-    if (!isset($data['appID']) || !is_string($data['appID']) || !file_exists($root."/config/views-".$data['appID'].".json")){
+    if (!isset($data['appID']) || !is_string($data['appID']) || !is_dir($root."/views/".$data['appID'])){
         return new Response( 404, ["AppError"=>[
             "code"      => 404000,
             "message"   => "No appID was supplied, or it was invalid."
@@ -27,9 +30,11 @@ function fetchAllViewHTML($data, $authInfo){
     function getHTML($context){
         global $root;
         $return = [];
-        $views = json_decode(file_get_contents($root."/config/views-".$context.".json"), true);
+        $views = findFiles($root."/views/".$context, "json");
+        
         foreach($views as $id=>$view){
-            $return[$id]=["id"=>$id, "html"=>getContent($id, $context), "title"=>$view['title']];
+            $json = json_decode(file_get_contents($view),true);
+            $return[$json['id']]=["id"=>$json['id'], "html"=>getContent(substr($view, 0, -4)."php"), "title"=>$json['title']];
         }
         return $return;
     }

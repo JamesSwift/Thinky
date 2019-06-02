@@ -10,7 +10,7 @@ var Controller = (new function(w, d){
 		priv = {
 			config: {
 				appID: null,
-				platformName: "Thinky"
+				platformName: null,
 			},
 			storageAvailable: undefined,
 			currentView: null,
@@ -1695,33 +1695,33 @@ var Controller = (new function(w, d){
 		return true;
 	}
 
-	pub.registerView = function(id, path, callback, config){
-			
+	pub.registerView = function(config, callback){
+		
 		//Enforce variable types
-		if (typeof id !== 'string'){
-			console.log("app.registerView(var), var must be string");
+		if (typeof config !== 'object' || config === undefined || config == null){
+			console.log("Config must be an object containing view settings.");
 			return false;
 		}
-		if (typeof path !== 'string'){
-			console.log("app.registerView(var1, var2), var2 must be string");
+		if (!("id" in config) || typeof config.id !== 'string'){
+			console.log("view id must be a string");
+			return false;
+		}
+		if (!("match" in config) || typeof config.match !== 'string'){
+			console.log("view match must be a string");
 			return false;
 		}
 		if (typeof callback !== 'function'){
-			console.log("app.registerView(var1, var2, var3), var3 must be function");
+			console.log("no callback specified");
 			return false;
 		}
 		
-		if (typeof priv.views[id] === "undefined"){
+		if (typeof priv.views[config.id] === "undefined"){
 			
-			priv.views[id] = {
-				path: path,
-				controller: callback
+			priv.views[config.id] = {
+				path: config.match,
+				controller: callback,
+				config: config
 			};
-			
-			if (typeof config !== "undefined"){
-				priv.views[id].config = config;
-			}
-				
 
 		}
 	};

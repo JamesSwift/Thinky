@@ -1,5 +1,5 @@
 {
 	"id": "home",
-	"match: "/",
+	"match": "/",
 	"title": "Home"
 }

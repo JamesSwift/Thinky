@@ -18,13 +18,13 @@
 
 		//CSS
 		embedResources("css", [
-			"models/thinky.css",
-			$context."/css/".$context.".css"
+			$root."/models/thinky.css",
+			$root."/".$context."/css/".$context.".css"
 		]);
 
-		if (is_file($root."/views/".$currentView['context']."/".$currentView["id"].".css")){
+		if (is_file($currentView["src"]['css'])){
 			embedResources("css", [
-				"views/".$context."/".$currentView["id"].".css"
+				$currentView["src"]['css']
 			]);
 		}
 
@@ -72,7 +72,7 @@
 				if (isset($currentView['html'])){
 					print $currentView['html'];
 				} else {
-					require($root."/views/".$currentView['context']."/".$currentView["id"].".php");
+					require($currentView['src']['html']);
 				}
 			print '</div>';
 			?>
@@ -141,15 +141,16 @@
 
 		//JavaScript
 		embedResources("js", [
-			"models/utils.js",
-			".submodules/SWDAPI/swdapi-client.min.js",
-			".submodules/SWDAPI/submodules/jsSHA/src/sha256.js",
-			"models/inputValidator.js",
-			"controllers/client-side.js",
-			$context."/js/".$context.".js",
-			"views/".$currentView['context']."/".$currentView["id"].".js"
-	 ]);
+			$root."/models/utils.js",
+			$root."/.submodules/SWDAPI/swdapi-client.min.js",
+			$root."/.submodules/SWDAPI/submodules/jsSHA/src/sha256.js",
+			$root."/models/inputValidator.js",
+			$root."/controllers/client-side.js",
+			$root."/".$context."/js/".$context.".js"
+		]);
 
+		printViewJS($currentView['src']['js']);
+			
 		linkResources("js", [
 			"js/all-views/"
 		]);

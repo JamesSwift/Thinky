@@ -1,4 +1,5 @@
 <?php
+require_once($root."/models/thinky.php");
 
 function testViewPattern($url, $pattern){
 
@@ -87,30 +88,26 @@ function matchView($url, $context){
 
     global $root;
 
-	function match($url, $file){
-		global $root;
-		$views = json_decode(file_get_contents($root."/config/views-".$file.".json"), true);
+	$views = listViews($context);
 
-	    foreach($views as $id=>$view){
-	        if (($variables = testViewPattern($url, $view['match'])) !== false){
-	            return ["id"=>$id, "variables"=>$variables, "context"=>$file, "title"=>$view['title'], "cache"=>($view['cache'] ?? true)];
-	        }
-	    }
-
-	    if ( $file !== "shared" && ($url==="" || $url==="/")){
-	        return ["id"=>"home", "variables"=>null, "context"=>$file, "title"=>$views['home']['title']];
-	    }
-
-	    return false;
+	//Attempt to match the view
+	foreach($views as $id=>$view){
+		if (($variables = testViewPattern($url, $view['match'])) !== false){
+			return $view;
+		}
+	}
+	
+	//Match against home
+	if (($url==="" || $url==="/") && isset($views['home'])){
+		return $views['home'];
 	}
 
-	if ( ($ret = match($url, "shared")) !== false){
-		return checkCache($url, $ret);
-	} else if ( ($ret = match($url,$context)) !== false){
-		return checkCache($url, $ret);
+	//If no match, return 404
+    if (isset($views['home'])){
+		return $views['404'];
 	}
 
-    return ["id"=>"404", "variables"=>null, "context"=>"shared", "title"=>"Not Found"];
+	return false;
 }
 
 function checkCache($url, $view){
@@ -197,18 +194,18 @@ function embedResources($type, $files){
 
 	foreach ($files as $file){
 		$mtime='';
-		if (!is_file($root."/".$file)){
-			die("Error loading: " . $root."/".$file);
+		if (!is_file($file)){
+			die("Error loading: " . $file);
 			continue;
 		}
 		if ($type==="css"){
 			print '<style>';
-			readfile($root."/".$file);
+			readfile($file);
 			//print str_replace(["\n", "\t"],"", file_get_contents($root."/".$file));
 			print "</style>\n";
 		} else {
 			print '<script>';
-			readfile($root."/".$file);
+			readfile($file);
 			//print preg_replace('/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/', '', file_get_contents($root."/".$file));
 			print "</script>\n";
 		}
