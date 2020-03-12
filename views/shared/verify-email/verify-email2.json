@@ -1,6 +1,6 @@
 {
 	"id": "verify-email2",
-	"match": "/account/verify-email/:userID/:code/",
+	"match": "/account/verify-email/:id/:code/",
 	"title": "Complete Your Email Address Verification",
 	"cache": false
 }

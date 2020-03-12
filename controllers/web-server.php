@@ -93,6 +93,7 @@ function matchView($url, $context){
 	//Attempt to match the view
 	foreach($views as $id=>$view){
 		if (($variables = testViewPattern($url, $view['match'])) !== false){
+			$view['variables'] = $variables;
 			return $view;
 		}
 	}
