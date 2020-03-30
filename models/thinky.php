@@ -7,8 +7,8 @@ function findFiles($path, $type="json"){
         if ($file==="." || $file==="..") continue;
         if (is_dir($path."/".$file)){
             $found = array_merge($found, findFiles($path."/".$file, $type));
-        } else if (substr(strtolower($file), -4) === $type){
-            $found[substr($file, 0, -5)] = $path."/".$file;
+        } else if (substr(strtolower($file), -(strlen($type)) ) === $type){
+            $found[substr($file, 0, -(strlen($type)-1)) ] = $path."/".$file;
         }
     }
     
