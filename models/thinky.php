@@ -46,12 +46,16 @@ function generateViewJS($context, $lastMtime=0){
     foreach($files as $view){
         $sub = substr($view, 0, -5);        
         
-        if (is_file($sub.".js") && $json = json_decode(file_get_contents($view), true)){
+        if ($json = json_decode(file_get_contents($view), true)){
             
             print 'u.waitForObjects(["controller"], function(){controller.registerView(';
             print json_encode($json);
             print ", function(){\n";
-    		readfile($sub.".js");
+            if (is_file($sub.".js") ){
+                readfile($sub.".js");
+            } else {
+                print "this.render();\n";
+            }
             print "\n});});\n\n";
 
             $mtime = filemtime($sub.".js");
