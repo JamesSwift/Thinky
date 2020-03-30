@@ -71,7 +71,11 @@ function printViewJS($file){
     print 'u.waitForObjects(["controller"], function(){controller.registerView(';
     print json_encode($json);
     print ", function(){\n";
-    readfile($file);
+    if (file_exists($file)){
+        readfile($file);
+    } else {
+        print "this.render();\n";
+    }
     print "\n});});\n\n";
     print "</script>";
 }
