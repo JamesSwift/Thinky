@@ -64,6 +64,29 @@ function generateViewJS($context, $lastMtime=0){
 	return $lastMtime;
 }
 
+function generateViewCSS($context, $lastMtime=0){
+    
+	global $root;
+	
+    $files = findFiles($root."/views/".$context, "css");
+  
+    foreach($files as $view){     
+    
+        print "/* ---- ".$view." ---- */\n";
+        readfile($view);
+        print "\n\n";
+            
+
+        $mtime = filemtime($view);
+        if ($mtime > $lastMtime){
+            $lastMtime = $mtime;
+        }
+        
+	}
+	
+	return $lastMtime;
+}
+
 function printViewJS($file){
     $json = json_decode(file_get_contents(substr($file,0 ,-2)."json"), true);
 
