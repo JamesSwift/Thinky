@@ -53,15 +53,15 @@ function generateViewJS($context, $lastMtime=0){
             print ", function(){\n";
             if (is_file($sub.".js") ){
                 readfile($sub.".js");
+                
+                $mtime = filemtime($sub.".js");
+                if ($mtime > $lastMtime){
+                    $lastMtime = $mtime;
+                }                
             } else {
                 print "this.render();\n";
             }
             print "\n});});\n\n";
-
-            $mtime = filemtime($sub.".js");
-            if ($mtime > $lastMtime){
-                $lastMtime = $mtime;
-            }
         }
 	}
 	
