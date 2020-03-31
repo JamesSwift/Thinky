@@ -86,7 +86,8 @@ form.onsubmit = function(e){
 				form.style.display="none";
 				successMessage.style.display="block";
 				app.login("Your password has been reset. Please log in with your new password.", function(){
-					controller.navigateTo("/account");
+					var user = controller.getUserPermissions();
+					controller.navigateTo("/accounts/"+user.id);
 					controller.createModal("<h3>Review Your Information</h3>If it has been a long time since you last logged in, you may wish to review your account information and ensure it is up to date.").render();
 				});
 				
