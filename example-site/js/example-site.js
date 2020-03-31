@@ -1,4 +1,4 @@
-/* global jsSHA,navigator,inputValidator,u,Controller */
+/* global appPayload,jsSHA,navigator,inputValidator,u,Controller */
 
 "use strict";
 
@@ -11,12 +11,8 @@ var controller, app = (new function(){
     function startController(){
     	if (typeof controller !== "undefined") return true;
 	    u.waitForObjects(["Controller"], function(){
-	        controller = Controller({
-				appID: "example-site",
-				platformName: "Thinky Example",
-	            apiEndpoint: "/api/",
-	            dataValidator: inputValidator
-	        });
+			appPayload.dataValidator = inputValidator;
+	        controller = Controller(appPayload);
 	    });
     }
 

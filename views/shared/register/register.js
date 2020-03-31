@@ -12,7 +12,7 @@ var self = this,
 u.waitForObjects(["grecaptcha.render"], function(){
 	recaptchaID = grecaptcha.render(
 		recaptchaDiv,
-		{sitekey:"___"}
+		{sitekey:appPayload.googleRecaptchaSiteKey}
 	);
 	self.container.querySelector("input[type=submit]").disabled = false;
 });

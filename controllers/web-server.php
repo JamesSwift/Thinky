@@ -140,7 +140,7 @@ function checkCache($url, $view){
 
 function getTitle($view){
 	global $CONFIG;
-	return $view['title']." | ".$CONFIG['platformName'];
+	return $view['title'].(isset($CONFIG['appendTitle']) ? $CONFIG['appendTitle'] : "");
 }
 
 
@@ -212,6 +212,13 @@ function embedResources($type, $files){
 		}
 	}
 
+}
+
+function getAppPayload(){
+	global $CONFIG, $context;
+
+	$payload = $CONFIG;
+	$payload['appID'] = $context;
 }
 
 //Set global $CONFIG variable

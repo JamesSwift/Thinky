@@ -14,7 +14,9 @@
 
 		print "<title>".htmlspecialchars(getTitle($currentView))."</title>";
 
-		print "<script>var firstView = ".json_encode($currentView)."</script>";
+		print "<script>var firstView = ".json_encode($currentView).";</script>";
+
+		print "<script>var appPayload = ".json_encode(getAppPayload()).";</script>";
 
 		//CSS
 		embedResources("css", [

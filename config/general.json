@@ -2,5 +2,8 @@
 	"platformName":"Thinky",
 	"platformEmail":"example@example.com",
 	"platformURL":"www.example.com",
-	"platformLogo":"images/logo.png"
+	"platformLogo":"/images/logo.png",
+	"apiEndpoint": "/api/",
+	"googleRecaptchaSiteKey":"",
+	"appendTitle": " | Thinky"
 }
