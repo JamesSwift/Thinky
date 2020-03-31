@@ -219,6 +219,8 @@ function getAppPayload(){
 
 	$payload = $CONFIG;
 	$payload['appID'] = $context;
+
+	return $payload;
 }
 
 //Set global $CONFIG variable
