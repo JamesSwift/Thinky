@@ -1,5 +1,9 @@
 <?php
 
+//Always run your web apps with UTC, don't forget to set MYSQL as well
+date_default_timezone_set('UTC');
+
+
 //Set global $CONFIG variable
 $CONFIG = json_decode(file_get_contents($root."/config/general.json"), true);
 
