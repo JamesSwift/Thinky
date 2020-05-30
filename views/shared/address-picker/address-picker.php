@@ -287,14 +287,14 @@
 	</div>
 	<table class="extra">
 		<tr>
-            <td>Recipient </td>
+            <td>Care Of </td>
             <td>
 				<input type='text' name='addressTo' placeholder='e.g. Mr. Smith' />
 				<br/><small> (Leave this blank if you are posting to yourself.)</small>
             </td>
         </tr>
 		<tr>
-            <td>Reference</td>
+            <td>Quick Reference</td>
             <td><input type='text' name='addressName' placeholder='e.g. Work, Home, Holiday Home' /></td>
         </tr>        
     </table>
