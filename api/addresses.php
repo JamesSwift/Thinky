@@ -74,8 +74,10 @@ function lookupAddress($input, $authInfo){
 				$data['streetAddress']
 			]);
 			
-			if ($chk->rowCount()>0){            
-				return new Response( 200, $chk->fetch());
+			if ($chk->rowCount()>0){    
+				$row =  $chk->fetch();
+				//No need to decrypt as we are only searching for unencrypted addresses
+				return new Response( 200, $row);
 			}
 			
 		} catch (\Exception $e){
@@ -132,7 +134,7 @@ function lookupAddress($input, $authInfo){
 			$response['state'] = $comp['long_name'];
 		}
 		if (in_array("administrative_area_level_2", $comp['types'])){
-			$response['county'] = $comp['long_name'];
+			$response['county'] = $comp['short_name'];
 		}
 		if (in_array("country", $comp['types'])){
 			$response['country'] = $comp['long_name'];
