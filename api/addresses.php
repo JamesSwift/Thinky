@@ -100,7 +100,7 @@ function lookupAddress($input, $authInfo){
 		
 		return new Response( 404, ["AppError"=>[
 			"code"      => 404510,
-			"message"   => "We couldn't find an exact match your address. Please try again, or enter your address manually."
+			"message"   => "We couldn't find an exact match for your address. Please try again, or enter your address manually."
 		]]);
 		
 	}
