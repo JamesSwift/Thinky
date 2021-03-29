@@ -5,14 +5,6 @@ var self = this,
 	name = self.container.querySelector(".name"),
 	chanegPin = self.container.querySelector(".changePin");
 
-if (self.variables === null || self.variables === undefined || typeof self.variables !== "object" ||
-	!("userID" in self.variables) || typeof self.variables.userID === "object"
-){
-	self.errorSwitchView("/accounts/"+self.getAciveUser());
-	return false;        	
-}
-
-
 
 logOut.onclick = function(){
 	if ("logout" in app){
@@ -52,5 +44,8 @@ self.authenticatedApiRequest("accounts/fetchContactDetails",
 			userID: data.userID
 		});
 		self.render();
+	},
+	function(){
+		errorSwitchView("/404");
 	}
 );    
