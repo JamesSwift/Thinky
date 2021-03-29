@@ -92,7 +92,7 @@ function fetchContactDetails($data, $authInfo){
     $user = intval($authInfo["authorizedUser"]->id);
 
     //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"])){
+    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
 
         //Check if the user/token is allowed to do this
         if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "viewUserInfo")){
