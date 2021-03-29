@@ -13,7 +13,7 @@ function checkEmployeePermission( \JamesSwift\SWDAPI\Credential $credential, $bu
 
             if ($o->rowCount()>0){
                 $row = $o->fetch();
-                $businessID = $o['id'];
+                $businessID = $row['id'];
             
             } else {
             
@@ -22,7 +22,7 @@ function checkEmployeePermission( \JamesSwift\SWDAPI\Credential $credential, $bu
                 $o->execute([$credential->id, $permission]);
                 if ($o->rowCount()>0){
                     $row = $o->fetch();
-                    $businessID = $o['businessID'];
+                    $businessID = $row['businessID'];
                 }
             }           
     
