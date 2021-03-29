@@ -34,6 +34,10 @@ self.authenticatedApiRequest("accounts/fetchContactDetails",
 			return self.render();
 		}
 		
+		if (data.userID*1 !== self.variables.userID*1){
+			controller.navigateTo("/accounts/"+data.userID);
+		}
+		
 		name.innerText = data.firstName;
 		
 		if (data.email === data.verifiedEmail){
