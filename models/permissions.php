@@ -2,6 +2,35 @@
 
 function checkEmployeePermission( \JamesSwift\SWDAPI\Credential $credential, $businessID, $permission){
     
+    global $API;
+
+    //Allow searching all businesses for a user-related permissions
+    if ($businessID === "any" && in_array($permission, ["viewUserInfo", "editUserInfo"]) ){
+        try {
+            ///Check if owner
+            $o = $API->DB->prepare("SELECT id FROM businesses WHERE owner = ?");
+            $o->execute([$credential->id]);
+
+            if ($o->rowCount()>0){
+                $row = $o->fetch();
+                $businessID = $o['id'];
+            
+            } else {
+            
+                //Check emplyee status
+                $o = $API->DB->prepare("SELECT * FROM employeePermissions WHERE userID = ? AND ? = 1");
+                $o->execute([$$credential->id, $permission]);
+                if ($o->rowCount()>0){
+                    $row = $o->fetch();
+                    $businessID = $o['businessID'];
+                }
+            }           
+    
+        } catch (\Exception $e){
+            return false;
+        }
+    }
+    
     $perms = getEmployeePermissions($credential->id, $businessID);
     
     if (!is_array($perms)){

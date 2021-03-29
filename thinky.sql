@@ -93,7 +93,9 @@ CREATE TABLE `employeePermissions` (
   `editDeliveryPricing` tinyint(1) NOT NULL DEFAULT 0,
   `overrideSchedule` tinyint(1) NOT NULL DEFAULT 0,
   `authorizeClient` tinyint(1) NOT NULL DEFAULT 0,
-  `connectStripeAccount` tinyint(1) NOT NULL DEFAULT 0
+  `connectStripeAccount` tinyint(1) NOT NULL DEFAULT 0,
+  `viewUserInfo` tinyint(1) NOT NULL DEFAULT 0,
+  `editUserInfo` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `nonce` (
