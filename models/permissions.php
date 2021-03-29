@@ -19,7 +19,7 @@ function checkEmployeePermission( \JamesSwift\SWDAPI\Credential $credential, $bu
             
                 //Check emplyee status
                 $o = $API->DB->prepare("SELECT * FROM employeePermissions WHERE userID = ? AND ? = 1");
-                $o->execute([$$credential->id, $permission]);
+                $o->execute([$credential->id, $permission]);
                 if ($o->rowCount()>0){
                     $row = $o->fetch();
                     $businessID = $o['businessID'];
@@ -30,7 +30,7 @@ function checkEmployeePermission( \JamesSwift\SWDAPI\Credential $credential, $bu
             return false;
         }
     }
-    
+
     $perms = getEmployeePermissions($credential->id, $businessID);
     
     if (!is_array($perms)){
