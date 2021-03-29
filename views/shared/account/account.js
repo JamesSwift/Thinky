@@ -1,11 +1,18 @@
 /* global u,app,controller */
 
-
 var self = this,
 	logOut = self.container.querySelector(".logOut"),
 	name = self.container.querySelector(".name"),
 	chanegPin = self.container.querySelector(".changePin");
-	
+
+if (self.variables === null || self.variables === undefined || typeof self.variables !== "object" ||
+	!("userID" in self.variables) || typeof self.variables.userID === "object"
+){
+	self.errorSwitchView("/accounts/"+self.getAciveUser());
+	return false;        	
+}
+
+
 
 logOut.onclick = function(){
 	if ("logout" in app){
@@ -24,7 +31,10 @@ if (user !== null && user.permissions !== null && typeof user.permissions === "o
 }
 
 //Start preloading data?
-self.authenticatedApiRequest("accounts/fetchContactDetails", null,
+self.authenticatedApiRequest("accounts/fetchContactDetails",
+	{
+		userID: self.variables.userID
+	},
 	function(data){
 		
 		if (typeof data !== "object"){

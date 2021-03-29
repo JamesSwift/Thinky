@@ -470,7 +470,7 @@ function sendRecoveryEmail($input, $authInfo){
         $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         
-        if ($meail === false){
+        if ($email === false){
             return new Response( 500, ["AppError"=>[
                 "code"      => 500110,
                 "message"   => "An error occurred while trying to send your recovery email. Please try again."
@@ -894,7 +894,7 @@ function changePassword($input, $authInfo){
         
         //TODO: invalidate all auth tokens
         
-        return new Response( 200, $response);
+        return new Response( 200, []);
 
     } catch (\Exception $e){
         return new Response( 500, ["AppError"=>[
