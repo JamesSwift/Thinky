@@ -46,6 +46,6 @@ self.authenticatedApiRequest("accounts/fetchContactDetails",
 		self.render();
 	},
 	function(){
-		errorSwitchView("/404");
+		self.errorSwitchView("/404");
 	}
 );    
