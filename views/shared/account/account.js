@@ -33,7 +33,7 @@ if (user !== null && user.permissions !== null && typeof user.permissions === "o
 //Start preloading data?
 self.authenticatedApiRequest("accounts/fetchContactDetails",
 	{
-		userID: self.variables.userID
+		userID: self.variables.userID*1
 	},
 	function(data){
 		

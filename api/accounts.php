@@ -110,6 +110,13 @@ function fetchContactDetails($data, $authInfo){
         $chk = $API->DB->prepare("SELECT id AS userID, title, firstName, middleNames, lastName, primaryPhoneNumber, secondaryPhoneNumber, email, defaultAddressPID, verifiedEmail FROM users WHERE id = ?");
         $chk->execute([$user]);
         
+        if ($chk->rowCount()===0){
+            return new Response( 404, ["AppError"=>[
+                "code"      => 404100,
+                "message"   => "The account you requested could not be found."
+            ]]);
+        }
+
         $details = $chk->fetch();
         
         foreach(["title", "firstName", "middleNames", "lastName", "primaryPhoneNumber", "secondaryPhoneNumber"] as $field){
