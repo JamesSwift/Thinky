@@ -147,8 +147,16 @@ function updateContactDetails($input, $authInfo){
     $user = intval($authInfo["authorizedUser"]->id);
 
     //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && 1==2){
-        //TODO implement permission management
+    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
+
+        //Check if the user/token is allowed to do this
+        if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "editUserInfo")){
+            return new Response( 403, ["AppError"=>[
+                "code"      => 403107,
+                "message"   => "You do not have permissions to edit this user's contact details."
+            ]]);
+        }
+
         $user = $data["userID"];
     }
     
@@ -219,11 +227,12 @@ function updateContactDetails($input, $authInfo){
     if (isset($data['email'])){
 		$sql.=", email = :email";
 		$sqlData['email'] = $data['email'];
-    }
-    
-	//Reset verified email if email changes
-    if ($data['email']!=$userDetails['email']){
-		$sql.=", verifiedEmail = null";
+        
+        
+        //Reset verified email if email changes
+        if ($data['email']!=$userDetails['email']){
+            $sql.=", verifiedEmail = null";
+        }
     }
     
     foreach(["title", "firstName", "middleNames", "lastName", "primaryPhoneNumber", "secondaryPhoneNumber"] as $field){
@@ -238,8 +247,8 @@ function updateContactDetails($input, $authInfo){
         $statement->execute($sqlData);
         
         //If email changed, send out verification
-        if ($data['email']!==$userDetails['email']){
-            $req = $API->request("accounts/sendEmailVerification", null, $authInfo);
+        if (isset($data['email']) && $data['email']!==$userDetails['email']){
+            $req = $API->request("accounts/sendEmailVerification", ["userID"=>$user], $authInfo);
         }
         
         return new Response(
@@ -683,8 +692,16 @@ function sendEmailVerification($data, $authInfo){
     $user = intval($authInfo["authorizedUser"]->id);
 
     //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && 1==2){
-        //TODO implement permission management
+    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
+
+        //Check if the user/token is allowed to do this
+        if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "editUserInfo")){
+            return new Response( 403, ["AppError"=>[
+                "code"      => 403108,
+                "message"   => "You do not have permissions to send an email verification for this user."
+            ]]);
+        }
+
         $user = $data["userID"];
     }
     
