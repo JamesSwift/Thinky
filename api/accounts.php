@@ -146,9 +146,10 @@ function updateContactDetails($input, $authInfo){
      
     $user = intval($authInfo["authorizedUser"]->id);
 
+    $admin = false;
 
     //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
+    if (isset($input["userID"]) && is_int($input["userID"]) && $input['userID'] !== $user ){
 
         //Check if the user/token is allowed to do this
         if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "editUserInfo")){
@@ -158,15 +159,14 @@ function updateContactDetails($input, $authInfo){
             ]]);
         }
 
-        $user = $data["userID"];
+        $user = $input["userID"];
         $admin = true;
-
+        
         //Validate the user input
         $validation = validateUserInput($input);
         
     } else {
 
-        $admin = false;
         //Validate the user input
         $validation = validateUserInput($input, ["currentPassword"]);
 
