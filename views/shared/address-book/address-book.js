@@ -4,6 +4,7 @@ var self = this,
 	addresses = self.container.querySelector(".addresses"),
 	errorBox = self.container.querySelector(".detailsError"),
 	addAddress = self.container.querySelector(".addAddress"),
+	userID = self.variables.userID*1,
 	lastData;
 	
 //Fetch address book and render it
@@ -18,7 +19,10 @@ var update = function(callback){
 		self.render();
 	};
 	
-	self.authenticatedApiRequest("accounts/fetchAddressBook", null,
+	self.authenticatedApiRequest("accounts/fetchAddressBook",
+	 	{
+			userID: userID
+		},
 		function(data){
 			
 			if (typeof data !== "object" || data === null){
@@ -152,7 +156,10 @@ function archiveAddress(pid){
 	u.loading.push();
 	self.authenticatedApiRequest(
 		"addresses/archiveAddress", 
-		{addressPID:pid}, 
+		{
+			addressPID:pid,		
+			userID: userID
+		}, 
 		function(response){
 			u.loading.pop();
 			self.container.querySelector(".addresses .pid_"+pid).classList.add("display-none");
@@ -166,7 +173,10 @@ function changeDefaultAddress(pid){
 	u.loading.push();
 	self.authenticatedApiRequest(
 		"accounts/changeDefaultAddress", 
-		{addressPID:pid}, 
+		{
+			addressPID:pid,
+			userID: userID
+		}, 
 		function(response){
 			update(function(){
 				u.loading.pop();
@@ -177,7 +187,15 @@ function changeDefaultAddress(pid){
 }
 
 addAddress.onclick = function(){
-	controller.openViewAsModal("address-picker", {newOnly:true,saveToAccount:true}, function(data){
-		update();
-	});
+	controller.openViewAsModal(
+		"address-picker", 
+		{
+			newOnly:true,
+			saveToAccount:true,
+			userID: userID
+		},
+		function(data){
+			update();
+		}
+	);
 };
