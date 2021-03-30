@@ -3,7 +3,7 @@
 var self = this,
 	form = this.container.querySelector("form"),
 	errorBox = self.container.querySelector(".detailsError"),
-	userID = self.variables.userID*1 || self.getActiveUser();
+	userID = self.variables.userID*1 || self.getActiveUser(),
 	lastData;
 	
 var loadingError = function(data){
