@@ -7,8 +7,8 @@ var self = this,
 	userID = self.variables.userID*1 || self.getActiveUser();
 	lastData;
 	
-if (data.userID === "0"){
-	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/address-book");
+if (self.variables.userID === "0"){
+	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/contact-details");
 }
 
 //Fetch address book and render it
