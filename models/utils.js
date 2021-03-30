@@ -662,8 +662,6 @@ var u = {
         nowMinute = pad(date.getMinutes());
         nowTime = "" + nowHour + "" + nowMinute;
         
-		console.log(nowTime);
-
         //Look up to 7 days ahead to find next opening time
         while (i<7){
             i++;
