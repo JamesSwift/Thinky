@@ -12,6 +12,9 @@ var loadingError = function(data){
 	self.render();
 };
 
+if (data.userID === "0"){
+	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/contact-details");
+}
 
 //Start preloading data?
 self.authenticatedApiRequest("accounts/fetchContactDetails", {userID: userID},

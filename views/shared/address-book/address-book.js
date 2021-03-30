@@ -7,6 +7,10 @@ var self = this,
 	userID = self.variables.userID*1 || self.getActiveUser();
 	lastData;
 	
+if (data.userID === "0"){
+	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/address-book");
+}
+
 //Fetch address book and render it
 var update = function(callback){
 	errorBox.innerHTML = "";

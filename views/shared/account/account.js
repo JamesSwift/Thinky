@@ -7,6 +7,10 @@ var self = this,
 	p = self.container.querySelector("p"),
 	chanegPin = self.container.querySelector(".changePin");
 
+if (data.userID === "0"){
+	return controller.navigateTo("/accounts/"+self.getActiveUser());
+}
+
 
 logOut.onclick = function(){
 	if ("logout" in app){
