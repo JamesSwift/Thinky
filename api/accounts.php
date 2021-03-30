@@ -146,6 +146,7 @@ function updateContactDetails($input, $authInfo){
      
     $user = intval($authInfo["authorizedUser"]->id);
 
+
     //Check if allowed to specify a different user id
     if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
 
@@ -158,10 +159,18 @@ function updateContactDetails($input, $authInfo){
         }
 
         $user = $data["userID"];
+        $admin = true;
+
+        //Validate the user input
+        $validation = validateUserInput($input);
+        
+    } else {
+
+        $admin = false;
+        //Validate the user input
+        $validation = validateUserInput($input, ["currentPassword"]);
+
     }
-    
-    //Validate the user input
-    $validation = validateUserInput($input, ["currentPassword"]);
     
     //Check for validation errors
     if (sizeof($validation["errors"])>0){
@@ -211,8 +220,8 @@ function updateContactDetails($input, $authInfo){
         ]]);
     }
     
-    //Test password
-    if (!password_verify($input['currentPassword'], $userDetails['password'])){
+    //Test password (unless admin)
+    if (!$admin && !password_verify($input['currentPassword'], $userDetails['password'])){
         return new Response( 400, ["AppError"=>[
             "code"      => 400102,
             "message"   => "The account password you supplied is incorrect. Please try again."

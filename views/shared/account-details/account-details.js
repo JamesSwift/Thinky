@@ -25,7 +25,7 @@ self.authenticatedApiRequest("accounts/fetchContactDetails", {userID: userID},
 		
 		u.form.loadValues(form, data);
 
-		self.container.querySelector("h2").innerText = self.container.querySelector("h2").innerText.replace("My", data.fullName+"'s");
+		self.container.querySelector("h2").innerText = data.fullName+"'s Contact Details";
 		
 		form.className = "";
 		self.render();
@@ -55,6 +55,12 @@ form.onsubmit = function(e){
 		
 	u.loading.push();
 
+	config = null;
+
+	if (userID !== self.getActiveUser){
+		config.getPasswordFor = self.getActiveUser();
+	}
+
 	self.authenticatedApiRequest(
 		"accounts/updateContactDetails", data, 
 		function(response){
@@ -68,8 +74,6 @@ form.onsubmit = function(e){
 			lastData = data;
 		}, 
 		u.standardFailureHandler(errorBox, form),
-		{
-			getPasswordFor: lastData.userID
-		}
+		config
 	);
 }
