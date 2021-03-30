@@ -3,7 +3,7 @@
 var self = this,
 	form = this.container.querySelector("form"),
 	errorBox = self.container.querySelector(".detailsError"),
-	userID = self.variables.userID*1 || self.getActiveUser(),
+	userID = self.variables.userID*1 || self.getActiveUser()*1,
 	lastData;
 	
 var loadingError = function(data){
@@ -25,8 +25,10 @@ self.authenticatedApiRequest("accounts/fetchContactDetails", {userID: userID},
 		
 		u.form.loadValues(form, data);
 
-		self.container.querySelector("h2").innerText = data.fullName+"'s Contact Details";
-		
+		if (userID !== self.getActiveUser()*1){
+			self.container.querySelector("h2").innerText = data.fullName+"'s Contact Details";
+		}
+
 		form.className = "";
 		self.render();
 	},
@@ -57,8 +59,8 @@ form.onsubmit = function(e){
 
 	config = null;
 
-	if (userID === self.getActiveUser()){
-		config.getPasswordFor = self.getActiveUser();
+	if (userID === self.getActiveUser()*1){
+		config.getPasswordFor = self.getActiveUser()*1;
 	}
 
 	self.authenticatedApiRequest(
