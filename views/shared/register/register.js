@@ -97,7 +97,7 @@ loginListener = function(token){
 		
 		//Redirect using timeout in case login redirects to another page (this.beforeClose clears this timer)
 		redirectTimeout = setTimeout(function(){
-			controller.navigateTo("/account", 1000);
+			controller.navigateTo("/accounts/" + token.uid, 1000);
 		});
 	}
 };
