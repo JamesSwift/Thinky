@@ -13,7 +13,7 @@ var loadingError = function(data){
 };
 
 if (self.variables.userID === "0"){
-	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/contact-details");
+	return self.errorSwitchView("/accounts/"+self.getActiveUser()+"/contact-details", true);
 }
 
 //Start preloading data?

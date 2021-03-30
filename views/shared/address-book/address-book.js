@@ -8,7 +8,7 @@ var self = this,
 	lastData;
 	
 if (self.variables.userID === "0"){
-	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/contact-details");
+	return self.errorSwitchView("/accounts/"+self.getActiveUser()+"/contact-details", true);
 }
 
 //Fetch address book and render it

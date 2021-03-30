@@ -8,7 +8,7 @@ var self = this,
 	chanegPin = self.container.querySelector(".changePin");
 
 if (self.variables.userID === "0"){
-	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/contact-details");
+	return self.errorSwitchView("/accounts/"+self.getActiveUser()+"/contact-details",true);
 }
 
 
@@ -41,7 +41,7 @@ self.authenticatedApiRequest("accounts/fetchContactDetails",
 		}
 		
 		if (data.userID*1 !== self.variables.userID*1){
-			return controller.navigateTo("/accounts/"+data.userID);
+			self.errorSwitchView("/accounts/"+data.userID, true);
 		}
 		
 		name.innerText = data.firstName;
