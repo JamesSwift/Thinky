@@ -50,6 +50,6 @@ self.authenticatedApiRequest("accounts/fetchContactDetails",
 		self.render();
 	},
 	function(){
-		self.errorSwitchView("/404");
+		self.errorSwitchView("/403");
 	}
 );    
