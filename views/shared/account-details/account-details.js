@@ -12,7 +12,7 @@ var loadingError = function(data){
 	self.render();
 };
 
-if (data.userID === "0"){
+if (self.variables.userID === "0"){
 	return controller.navigateTo("/accounts/"+self.getActiveUser()+"/contact-details");
 }
 
