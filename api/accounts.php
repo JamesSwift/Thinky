@@ -125,7 +125,8 @@ function fetchContactDetails($data, $authInfo){
         }
         
         //Computed value
-        $details['fullName'] = $details['title']." ".$details['firstName']." ".($details['middleNames']==""?"":$details['middleNames']." ").$details['lastName'];
+        $details['fullName'] = ($details['title'] == null ? "" : $details['title']." ") . $details['firstName']." ".($details['middleNames']==""?"":$details['middleNames']." ").$details['lastName'];
+         
         
         return new Response( 200, $details);
 
