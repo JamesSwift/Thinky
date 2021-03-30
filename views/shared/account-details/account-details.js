@@ -57,7 +57,7 @@ form.onsubmit = function(e){
 		
 	u.loading.push();
 
-	config = null;
+	config = {};
 
 	if (userID === self.getActiveUser()*1){
 		config.getPasswordFor = self.getActiveUser()*1;
