@@ -73,8 +73,8 @@ function saveAddressToAccount($input, $authInfo){
 	$admin = false;
 
 	//Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $userID ){
-
+    if (isset($input["userID"]) && is_int($input["userID"]) && $input['userID'] !== $userID ){
+		
         //Check if the user/token is allowed to do this
         if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "editUserInfo")){
             return new Response( 403, ["AppError"=>[
@@ -83,7 +83,7 @@ function saveAddressToAccount($input, $authInfo){
             ]]);
         }
 		$admin = true;
-        $userID = $data["userID"];
+        $userID = $input["userID"];
     }
 	
 	//Validate the user input (admins are allowed partial addresses)
