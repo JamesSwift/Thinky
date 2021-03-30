@@ -25,7 +25,7 @@ self.authenticatedApiRequest("accounts/fetchContactDetails", {userID: userID},
 		
 		u.form.loadValues(form, data);
 
-		self.container.querySelector("h2").innertext = self.container.querySelector("h2").innertext.replace("My", data.fullName+"'s");
+		self.container.querySelector("h2").innerText = self.container.querySelector("h2").innerText.replace("My", data.fullName+"'s");
 		
 		form.className = "";
 		self.render();
