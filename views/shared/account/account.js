@@ -3,6 +3,8 @@
 var self = this,
 	logOut = self.container.querySelector(".logOut"),
 	name = self.container.querySelector(".name"),
+	h2 = self.container.querySelector("h2"),
+	p = self.container.querySelector("p"),
 	chanegPin = self.container.querySelector(".changePin");
 
 
@@ -35,10 +37,25 @@ self.authenticatedApiRequest("accounts/fetchContactDetails",
 		}
 		
 		if (data.userID*1 !== self.variables.userID*1){
-			controller.navigateTo("/accounts/"+data.userID);
+			return controller.navigateTo("/accounts/"+data.userID);
 		}
 		
 		name.innerText = data.firstName;
+
+		//If we are viewing someone else's account, change formatting
+		if (data.userID*1 !== self.getActiveUser()*1){
+			h2.innerText = data.fullName+"'s Account";
+			p.classList.add("display-none");
+			self.container.querySelectorAll("ul")[1].classList.add("display-none");
+			self.container.querySelectorAll("ul")[2].classList.add("display-none");
+
+
+			As = self.container.querySelectorAll("a");
+			for (var a in As){
+				if (!As.hasOwnProperty(a)) continue;
+				As[a].innerText = As[a].innerText.replace("your ", "");
+			}
+		}
 		
 		if (data.email === data.verifiedEmail){
 			self.container.querySelector(".verify").classList.add("display-none");
