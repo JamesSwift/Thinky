@@ -166,10 +166,13 @@ function renderAddress(data){
 
 //If logged in, load address book
 if (controller.isAuthenitcated() && self.variables.newOnly!==true){
-	data = {};
+	
 	if ("userID" in self.variables && typeof self.variables.userID === "number"){
-		data.userID = self.variables.userID;
+		data = { userID: self.variables.userID };
+	} else {
+		data = null;
 	}
+	
 	self.authenticatedApiRequest(
 		"accounts/fetchAddressBook",
 		data,

@@ -13,12 +13,12 @@
             <td><textarea data-required='true' name='streetAddress' autocomplete='address-line1' /></textarea>
         </tr>
 		<tr class="extra">
-            <td>Town</td>
+            <td>Town *</td>
             <td><input type='text' name='town' /></td>
         </tr>
 		<tr class="extra">
             <td>County</td>
-            <td><input type='text'  name='county' /></td>
+            <td><input type='text' name='county' /></td>
         </tr>
 		<tr class="extra state display-none">
             <td>State</td>
@@ -26,7 +26,7 @@
         </tr> 
         <tr>
     	    <td>Postcode *</td>
-    	    <td><input type='text' data-required='true' name='postcode' autocomplete='postal-code' /></td>
+    	    <td><input type='text' name='postcode' autocomplete='postal-code' /></td>
         </tr>
         <tr>
     	    <td>Country *</td>
