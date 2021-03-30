@@ -89,7 +89,7 @@ var renderAddress = function (data){
 		modal.querySelector(".closeMenu").onclick = modal.close;
 		modal.querySelector(".edit").onclick = function(){
 			modal.close();
-			var editWindow = controller.openViewAsModal("address-picker", {edit:true, addressPID:data.addressPID}, function(data){
+			var editWindow = controller.openViewAsModal("address-picker", {edit:true, addressPID:data.addressPID, userID: userID}, function(data){
 					u.loading.push();
 					update(function(){
 						u.loading.pop();
