@@ -8,7 +8,7 @@ var self = this,
 	chanegPin = self.container.querySelector(".changePin");
 
 if (self.variables.userID === "0"){
-	return self.errorSwitchView("/accounts/"+self.getActiveUser()+"/contact-details",true);
+	return self.errorSwitchView("/accounts/"+self.getActiveUser(),true);
 }
 
 
