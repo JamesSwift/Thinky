@@ -662,17 +662,19 @@ var u = {
         nowMinute = pad(date.getMinutes());
         nowTime = "" + nowHour + "" + nowMinute;
         
+		console.log(nowTime);
+
         //Look up to 7 days ahead to find next opening time
         while (i<7){
             i++;
             
             //Find the day of the week for this iteration
             today = (date.getDay() + i ) % 7;
-            
+
             //Check something is scheduled for today
             if (!isValidDay(today)) continue;
             
-            //Loop through each scheduled time for today and see if it is the enxt opening time
+            //Loop through each scheduled time for today and see if it is the next opening time
             for (var t in business.schedule[days[today]].times){
                 
                 if (!business.schedule[days[today]].times.hasOwnProperty(t)) continue;
@@ -711,11 +713,17 @@ var u = {
                         
                     //Does the slot in question finish after AND START BEFORE the forced opening time?
                     } else if (getRealDate(date, i, time['start']).getTime() <= openUntil.getTime()+60000){
-                        return buildReturn(i, {start: "0000", finish: time['finish']});
+						
+						var closingStamp = openUntil;						
+						closingStamp.setHours(time['finish'].substring(0,2));
+						closingStamp.setMinutes(time['finish'].substring(2,4));
+						
+                        return buildReturn(0, {start: "0000", finish: time['finish']}, closingStamp);
                         
                     //The slot in question starts after the opening time, so it must be the next opening time
                     } else {
                         var newFinish = pad(openUntil.getHours()) +""+ pad(openUntil.getMinutes());
+						
                         return buildReturn(0, {start: "0000", finish: newFinish}, openUntil);
                     }
                     
@@ -769,12 +777,12 @@ var u = {
         
         //No slot was found, no opening time could be established
         //If forced override is in effect, invent a time slot
-        if (openUntil !== null){
+		if (openUntil !== null){
             var newFinish = pad(openUntil.getHours()) +""+ pad(openUntil.getMinutes());
             return buildReturn(0, {start: "0000", finish: newFinish}, openUntil);
         }
         
-        //Return false to indicate that the enxt opening time is unknown
+        //Return false to indicate that the next opening time is unknown
         return false;        
         
         //////////////////////////////////////////////////////////////////
