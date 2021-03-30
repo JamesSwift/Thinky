@@ -1,6 +1,6 @@
 {
 	"id": "address-picker",
-	"match": "/modals/address-picker/",
+	"match": "/modals/address-picker/:userID",
 	"title": "Select a Delivery Address",
 	"cache": false
 }

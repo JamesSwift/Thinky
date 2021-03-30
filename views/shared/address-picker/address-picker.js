@@ -41,6 +41,9 @@ country.onchange = function(){
 function lookupAddress(input){
 	
 	output.innerHTML = "";
+	if ("userID" in self.variables && typeof self.variables.userID === "number"){
+		input.userID = self.variables.userID;
+	}
 	u.loading.push();
 	try {
 		controller.api.request(
@@ -82,6 +85,10 @@ add.onclick = function(){
 		
 	if (self.variables.edit===true){
 		data.addressPID = self.variables.addressPID;
+	}
+
+	if ("userID" in self.variables && typeof self.variables.userID === "number"){
+		data.userID = self.variables.userID;
 	}
 	
 	if (data.country=="United Kingdom"){
@@ -159,9 +166,13 @@ function renderAddress(data){
 
 //If logged in, load address book
 if (controller.isAuthenitcated() && self.variables.newOnly!==true){
+	data = {};
+	if ("userID" in self.variables && typeof self.variables.userID === "number"){
+		data.userID = self.variables.userID;
+	}
 	self.authenticatedApiRequest(
 		"accounts/fetchAddressBook",
-		null,
+		data,
 		function(data){
 			if (typeof data !== "object" || data === null){
 				return self.render();
