@@ -224,7 +224,7 @@ function archiveAddress($input, $authInfo){
 	$data = $validation['data'];
 
 	$chk = $API->DB->prepare("SELECT * FROM `addresses` WHERE pid = ?");
-	$chk->execute([$userID, $data['addressPID']]);
+	$chk->execute([$data['addressPID']]);
 
 	//Does the address exist?
 	if ($chk->rowCount()==0){
