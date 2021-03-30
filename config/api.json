@@ -112,13 +112,6 @@
             ],
             "requireAuthorizedUser": true
         },
-        "accounts/fetchPaymentSources": {
-            "call": "fetchPaymentSources",
-            "src": [
-                "accounts.php"
-            ],
-            "requireAuthorizedUser": true
-        },
         "businesses/fetchDetails": {
             "call": "fetchDetails",
             "src": [
