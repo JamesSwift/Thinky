@@ -7,20 +7,13 @@ function lookupAddress($input, $authInfo){
 	
 	global $API,$root;
 	
-	if (isset($authInfo["authorizedUser"])){
-		$userID = intval($authInfo["authorizedUser"]->id);
-	} else {
-		$userID = 0;
-	}
+	$userID = intval($authInfo["authorizedUser"]->id);
+	
+	//Check if the user/token is allowed to do see all addresses
+	$admin = checkEmployeePermission($authInfo["authorizedUser"], "any", "viewUserInfo");
 
 	//Validate the user input
-	$required = [];
-	if (isset($input['addressPID'])){
-		$required = ["addressPID"];
-	} else {
-		$required = ["postcode", "streetAddress", "country"];
-	} 
-	$validation = validateUserInput($input, $required);
+	$validation = validateUserInput($input, ["addressPID"]);
 	
 	//Check for validation errors
 	if (sizeof($validation["errors"])>0){
@@ -29,165 +22,45 @@ function lookupAddress($input, $authInfo){
 	
 	//Use the sanitized data
 	$data = $validation['data'];
-	
-	//If specific address requested, return it (if possible)
-	if (isset($data['addressPID'])){
 		
-		try {
-			$chk = $API->DB->prepare("SELECT pid AS addressPID,id AS addressID, addressName, addressTo, streetAddress,town,county,state,country,postcode FROM `addresses` WHERE (userID is null OR userID = ?) AND pid = ? AND archived = 0 ORDER BY id desc");
-			$chk->execute([
-				$userID,
-				$data['addressPID'],
-			]);
-			
-			
-			if ($chk->rowCount()>0){
-				$row =  $chk->fetch();
-				
-				//Decrypt if a user row
-				if ($row['userID']!==null){
-					foreach (["addressTo", "streetAddress", "town", "county", "state", "country", "postcode"] as $col){
-						$row[$col] = decrypt($row[$col]);
-					}
-				}
-				
-				return new Response( 200,$row);
-			} else {
-				throw new \Exception("Not found");
-			}
-			
-		} catch (\Exception $e){
-			return new Response( 404, ["AppError"=>[
-				"code"      => 404511,
-				"message"   => "The specific address you requested could not be found."
-			]]);
-		}
-	
-	//Check database first (if postcode & address search)
-	} else if (isset($data['postcode'])){
-		try {
-			$chk = $API->DB->prepare("SELECT pid AS addressPID,id AS addressID,streetAddress,town,county,country,postcode FROM `addresses` WHERE (userID is null OR userID = ?) AND country = ? AND postcode = ? AND streetAddress = ? AND archived = 0 ORDER BY id desc");
-			$chk->execute([
-				$userID,
-				$data['country'],                
-				$data['postcode'],
-				$data['streetAddress']
-			]);
-			
-			if ($chk->rowCount()>0){    
-				$row =  $chk->fetch();
-				//No need to decrypt as we are only searching for unencrypted addresses
-				return new Response( 200, $row);
-			}
-			
-		} catch (\Exception $e){
-			//Do nothing, just keep going
-		}
-	}
-	
-	//Else, Lookup from google
-	$search = "components=".rawurlencode("country:".$data['country']."|postal_code:".$data['postcode'])."&address=".rawurlencode($data['streetAddress']);
-	
-	
-	$url = "https://maps.googleapis.com/maps/api/geocode/json?".$search."&key=".rawurlencode(file_get_contents($root."/config/googleAPIKey.txt"));
-
-	$ch = curl_init($url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	$request = curl_exec($ch);
-	curl_close($ch);
-
-	$request = json_decode($request, true);
-	
-	if (!is_array($request) || $request['status']!=="OK" || !is_array($request['results'])  || sizeof($request['results']) < 1){
-		
-		return new Response( 404, ["AppError"=>[
-			"code"      => 404510,
-			"message"   => "We couldn't find an exact match for your address. Please try again, or enter your address manually."
-		]]);
-		
-	}
-	
-	$response = [
-		"streetAddress" => $data['streetAddress'],
-		"town" => "",
-		"county" => "",
-		"state" => "",
-		"country" => "",
-		"postcode" => ""
-	];
-		
-	//Find details
-	foreach ($request['results'][0]["address_components"] as $comp){
-		if (!isset($data['streetAddress'])){
-			if (in_array("street_number", $comp['types'])){
-				$response['streetAddress'] = $comp['long_name']." ".$response['streetAddress'];
-			}
-			if (in_array("route", $comp['types'])){
-				$response['streetAddress'] .= $comp['long_name'];
-			}
-		}
-		
-		if (in_array("locality", $comp['types'])){
-			$response['town'] = $comp['long_name'];
-		}
-		if (in_array("administrative_area_level_1", $comp['types'])){
-			$response['state'] = $comp['long_name'];
-		}
-		if (in_array("administrative_area_level_2", $comp['types'])){
-			$response['county'] = $comp['short_name'];
-		}
-		if (in_array("country", $comp['types'])){
-			$response['country'] = $comp['long_name'];
-		}
-		if (in_array("postal_code", $comp['types'])){
-			$response['postcode'] = $comp['long_name'];
-		}
-	}
-	
-	//cache or save this address
 	try {
-		
-		$API->DB->beginTransaction();
-		
-		//Get a new PID
-		if ($userID>0){
-			$statement = $API->DB->prepare("INSERT INTO pids SET `table` = 'addresses', createdBy = ?");
-			$statement->execute([$userID]);
-		} else {
-			$statement = $API->DB->prepare("INSERT INTO pids SET `table` = 'addresses'");
-			$statement->execute();
+		$vars = [];
+		$sql = "SELECT pid AS addressPID,id AS addressID, addressName, addressTo, streetAddress,town,county,state,country,postcode FROM `addresses` WHERE ";
+
+		if (!$admin){
+			$vars[] = $userID;
+			$sql.="(userID is null OR userID = ?) AND ";
 		}
-		$pid = $API->DB->lastInsertId();
+
+		$sql .= "pid = ? AND archived = 0 ORDER BY id desc";
+
+		$vars[] = $data['addressPID'];
+
+		$chk = $API->DB->prepare();
+		$chk->execute($vars);
 		
-		$saveMe = [
-			$pid,
-			$response['country'],
-			$response['county'],
-			$response['state'],
-			$response['streetAddress'],
-			$response['town'],
-			$response['postcode']
-		];
 		
-		$chk = $API->DB->prepare("INSERT INTO `addresses` SET pid = ?, country = ?, county = ?, state = ?, streetAddress = ?, town = ?, postcode = ?");
-		$chk->execute($saveMe);
-		
-		$response['addressPID'] = $pid;
-		$response['addressID'] = $API->DB->lastInsertId();
-		
-		$API->DB->commit();
+		if ($chk->rowCount()>0){
+			$row =  $chk->fetch();
+			
+			//Decrypt if a user row
+			if ($row['userID']!==null){
+				foreach (["addressTo", "streetAddress", "town", "county", "state", "country", "postcode"] as $col){
+					$row[$col] = decrypt($row[$col]);
+				}
+			}
+			
+			return new Response( 200,$row);
+		} else {
+			throw new \Exception("Not found");
+		}
 		
 	} catch (\Exception $e){
-		
-		$API->DB->rollBack();
-		
-		return new Response( 500, ["AppError"=>[
-			"code"      => 500511,
-			"message"   => "An error occurred while trying to store your address. Please try again."
+		return new Response( 404, ["AppError"=>[
+			"code"      => 404511,
+			"message"   => "The specific address you requested could not be found."
 		]]);
 	}
-		
-	return new Response( 200, $response);
 }
 
 

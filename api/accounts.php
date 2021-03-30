@@ -262,12 +262,6 @@ function fetchSecurityQuestions($data, $authInfo){
     
     $user = intval($authInfo["authorizedUser"]->id);
 
-    //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && 1==2){
-        //TODO implement permission management
-        $user = $data["userID"];
-    }
-    
     try {
         
         $chk = $API->DB->prepare("SELECT securityQuestion1, securityQuestion2, securityQuestion3 FROM users WHERE id = ?");
@@ -306,12 +300,6 @@ function updateSecurityQuestions($input, $authInfo){
     // don't forget currentPassword
      
     $user = intval($authInfo["authorizedUser"]->id);
-
-    //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && 1==2){
-        //TODO implement permission management
-        $user = $data["userID"];
-    }
     
     //Validate the user input
     $validation = validateUserInput($input, [
@@ -1033,8 +1021,16 @@ function fetchAddressBook($input, $authInfo){
     $user = intval($authInfo["authorizedUser"]->id);
 
     //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && 1==2){
-        //TODO implement permission management
+    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
+
+        //Check if the user/token is allowed to do this
+        if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "viewUserInfo")){
+            return new Response( 403, ["AppError"=>[
+                "code"      => 403105,
+                "message"   => "You do not have permissions to view this user's address book."
+            ]]);
+        }
+
         $user = $data["userID"];
     }
     
@@ -1092,16 +1088,28 @@ function changeDefaultAddress($input, $authInfo){
     //Use the sanitized data
     $data = $validation['data'];  
     
-    //TODO: allow admins to specify a different user
     $user = intval($authInfo["authorizedUser"]->id);
+
+    //Check if allowed to specify a different user id
+    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
+
+        //Check if the user/token is allowed to do this
+        if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "viewUserInfo")){
+            return new Response( 403, ["AppError"=>[
+                "code"      => 403106,
+                "message"   => "You do not have permissions to view this user's contact details."
+            ]]);
+        }
+
+        $user = $data["userID"];
+    }
     
     //Check that we own this address and it is not archived
     try {
          
         $q = $API->DB->prepare("SELECT * FROM addresses WHERE userID = :id AND pid = :addressPID AND archived = 0");
         $q->execute(["id" => $user, "addressPID" => $data['addressPID']]);
-        
-        //Test password
+
         if ($q->rowCount()<1){
 			return new Response( 403, ["AppError"=>[
 				"code"      => 403160,
@@ -1112,7 +1120,7 @@ function changeDefaultAddress($input, $authInfo){
     } catch (\Exception $e){
         return new Response( 500, ["AppError"=>[
             "code"      => 500160,
-            "message"   => "An error occurred while trying to check your account information."
+            "message"   => "An error occurred while trying to change your default address."
         ]]);
     }
     

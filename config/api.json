@@ -163,7 +163,8 @@
             "call": "lookupAddress",
             "src": [
                 "addresses.php"
-            ]
+            ],            
+            "requireAuthorizedUser": true
         },
         "addresses/saveAddressToAccount": {
             "call": "saveAddressToAccount",
