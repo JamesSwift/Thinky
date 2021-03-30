@@ -4,7 +4,7 @@ var self = this,
 	addresses = self.container.querySelector(".addresses"),
 	errorBox = self.container.querySelector(".detailsError"),
 	addAddress = self.container.querySelector(".addAddress"),
-	userID = self.variables.userID*1,
+	userID = self.variables.userID*1 || self.getActiveUser();
 	lastData;
 	
 //Fetch address book and render it

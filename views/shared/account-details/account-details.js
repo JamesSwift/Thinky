@@ -3,6 +3,7 @@
 var self = this,
 	form = this.container.querySelector("form"),
 	errorBox = self.container.querySelector(".detailsError"),
+	userID = self.variables.userID*1 || self.getActiveUser();
 	lastData;
 	
 var loadingError = function(data){
@@ -13,7 +14,7 @@ var loadingError = function(data){
 
 
 //Start preloading data?
-self.authenticatedApiRequest("accounts/fetchContactDetails", null,
+self.authenticatedApiRequest("accounts/fetchContactDetails", {userID: userID},
 	function(data){
 		
 		if (typeof data !== "object"){
@@ -23,6 +24,8 @@ self.authenticatedApiRequest("accounts/fetchContactDetails", null,
 		lastData = data;
 		
 		u.form.loadValues(form, data);
+
+		self.container.querySelector("h2").innertext = self.container.querySelector("h2").innertext.replace("My", data.fullName+"'s");
 		
 		form.className = "";
 		self.render();
@@ -48,6 +51,7 @@ form.onsubmit = function(e){
 	//collect the data
 	var data = u.form.getValues(form);
 	
+	data.userID = userID;
 		
 	u.loading.push();
 
