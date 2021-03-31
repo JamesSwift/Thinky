@@ -638,7 +638,10 @@ var Controller = (new function(w, d){
 			if (!u.form.validate(pinForm)){
 				return false;
 			}
-			
+						
+			//Prevent "remember password" on this field
+			pin.type = "text";
+
 			try {
 			
 				if (activePinUser === null){
