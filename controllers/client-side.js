@@ -348,11 +348,16 @@ var Controller = (new function(w, d){
 				if (typeof failure === "function"){
 					failure();
 				}
+			} else if ("requireUserIsEmployee" in priv.config && priv.config.requireUserIsEmployee === true && !pub.employee.isEmployee(priv.userToken)){
+				if (typeof failure === "function"){
+					return failure("Authentication failed. You are not an employee.");
+				}
 			} else if (typeof config === "object" && config !== null && config.getPasswordFor){
 				if (priv.userToken.uid != config.getPasswordFor){
 					if (typeof failure === "function"){
 						return failure("Authentication failed. The current user's uid doesn't match.");
 					}
+					return false;
 				} 
 				pub.passwordPrompt(
 					function(password){
@@ -565,6 +570,14 @@ var Controller = (new function(w, d){
 								if (token.uid in priv.users && priv.users[token.uid].token.id !== token.id){
 									deAuthToken(priv.users[token.uid].token);
 								}
+
+								//Are we requiring users to be employees?
+								if ("requireUserIsEmployee" in priv.config && priv.config.requireUserIsEmployee === true && !pub.employee.isEmployee(token)){
+									loginError.innerHTML = "Sorry, you are not an employee on this system.";
+									u.fadeIn(loginError);
+									deAuthToken(token);
+									return;
+								}
 								
 								//Create salt for comparing pins later
 								var sha = new jsSHA("SHA-256", "TEXT");
@@ -589,7 +602,7 @@ var Controller = (new function(w, d){
 									success(token.uid);
 								}
 								
-								//If no pin set yet, create one and tell them
+								//If no pin set yet, prompt to create one
 								if (!("data" in token) || typeof token.data !== "object" || token.data === null || token.data.pin === null){
 									pub.openViewAsModal("change-pin", {
 										currentPassword: password,
@@ -1744,6 +1757,22 @@ var Controller = (new function(w, d){
 	};
 	
 	pub.employee = {
+
+		//Is the user an employee, if businessID is specified are they an eployee of that business
+		isEmployee: function(token, businessID){
+			if (
+				token!== undefined && token !== null && "permissions" in token && typeof token.permissions === "object" && token.permissions !==null
+				&& "employee" in token.permissions
+			){
+				if ( typeof businessID === "undefined" || businessID === null){
+					return Object.keys(token.permissions.employee).length > 0;
+				} else if (businessID in token.permissions.employee){
+					return true;
+				}
+			}
+			return false;
+		},
+
 		getPermissions: function(token, businessID){
 			if (
 				token!== undefined && token !== null && "permissions" in token && typeof token.permissions === "object" && token.permissions !==null
