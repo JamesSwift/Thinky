@@ -638,7 +638,7 @@ var Controller = (new function(w, d){
 			if (!u.form.validate(pinForm)){
 				return false;
 			}
-						
+			
 			//Prevent "remember password" on this field
 			pin.type = "text";
 
@@ -698,17 +698,16 @@ var Controller = (new function(w, d){
 		
 		modal.render();
 		
+		var numUsers = 0;
+
 		//Show correct view
 		if (Object.keys(priv.users).length>0 && !(typeof config === "object" && config !== null && (config.getPasswordFor || (config.forceLogIn && config.forceLogIn === true))) ){
-			
-			switchTab("pin");
-			
 			
 			//Update the list of logged in users
 			var users = modal.querySelector(".users");
 			var user;
 			for (var i in priv.users){
-				if (!priv.users.hasOwnProperty(i)) continue;
+				if (!priv.users.hasOwnProperty(i) || !priv.users[i].token.data.pin) continue;
 				var a = document.createElement("a");
 				a.href="javascript:;";
 				a.onclick = switchPinUser;
@@ -716,12 +715,19 @@ var Controller = (new function(w, d){
 				a.userID = i;
 				a.appendChild(document.createTextNode(priv.users[i].token.data.firstName + " " + priv.users[i].token.data.lastName));
 				users.appendChild(a);
+				numUsers++;
+
+				console.log(priv.users[i]);
 				
 				if (i === priv.activeTokenUID){
 					switchPinUser(a);
 				}
 			}
-			
+		}
+
+		if 	(numUsers > 0 ){
+			switchTab("pin");
+
 			//Show the onscreen keyboard?
 			if ("physicalKeyboard" in settings && settings.physicalKeyboard === false){
 				modal.querySelector(".osk").classList.remove("display-none");
