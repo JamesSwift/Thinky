@@ -673,8 +673,16 @@ function checkEmailVerification($data, $authInfo){
     $user = intval($authInfo["authorizedUser"]->id);
 
     //Check if allowed to specify a different user id
-    if (isset($data["userID"]) && is_int($data["userID"]) && 1==2){
-        //TODO implement permission management
+    if (isset($data["userID"]) && is_int($data["userID"]) && $data['userID'] !== $user ){
+
+        //Check if the user/token is allowed to do this
+        if (!checkEmployeePermission($authInfo["authorizedUser"], "any", "viewUserInfo")){
+            return new Response( 403, ["AppError"=>[
+                "code"      => 403109,
+                "message"   => "You do not have permissions to view this user's email verification status."
+            ]]);
+        }
+
         $user = $data["userID"];
     }
     
