@@ -1,0 +1,6 @@
+{
+	"id": "select-businesst",
+	"match": "/select-business",
+	"title": "Link This Device to a Business",
+	"requireAuthorizedUser": true
+}

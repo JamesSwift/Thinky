@@ -1,0 +1,111 @@
+header {
+	background: #fcfcfc;
+	padding: 7px;
+	box-shadow: 0 0 7px #ccc;
+	min-height:35px;
+}
+
+.logo img {
+	max-height:35px;
+	display:inline-block;
+}
+.logo .logoSmall {
+	display:none;
+}
+
+.menu {
+	margin-top:2px;
+    float:right;
+    height:35px;
+}
+
+.menu a {
+	display:inline-block;
+	height:100%;
+	box-sizing: border-box;
+	line-height:31px;
+	padding: 0 5px;
+    color:white;
+    margin-right:10px;
+    background:#c7c7c7;
+    border-radius: 5px;
+    border:2px solid #999;
+    font-weight:400;
+    text-align:center;
+    min-width:50px;
+}
+	.menu a:hover {
+		text-decoration:none;
+		background:#888;
+	}
+
+.statusButton>span {
+	font-weight:bold;
+}
+.statusButton .open {
+	color:#00f500;
+}
+
+.statusButton .closed {
+	color:red;
+}
+
+.statusButton .hidden {
+	color:orange;
+}
+
+.lockButton {
+	background-color:#19bb19 !important;
+	text-align:center;
+	transition:all 0.2s;
+}
+
+.lockButton.locked {
+	background-color:#930d0d !important;
+}
+
+#modals>#mainMenu {
+	max-width:300px;
+	background:#333;
+	padding:5px;
+	text-align:center;
+}
+
+#mainMenu nav a {
+	display:block;
+	padding:10px;
+	margin:15px;
+	color:white;
+	background-color:#555;
+	border-radius:5px;
+	font-weight:400;
+}
+
+
+#mainMenu nav a.closeMenu {
+	background-color:#888;
+}
+
+#mainMenu nav a:hover {
+	background-color:#777;
+	text-decoration:none;
+}
+
+@media ( max-width:500px){
+	
+	.logo .logoSmall {
+		display:inline-block;
+	}
+	.logo .logoBig {
+		display:none;
+	}
+}
+
+#page {
+	position:relative;
+	margin:10px;
+}
+
+.loginError {
+	margin-top:20px;
+}

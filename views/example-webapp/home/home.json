@@ -1,0 +1,6 @@
+{
+	"id": "home",
+	"match": "/",
+	"title": "Home",
+	"multiUserAuthTimeout": 5
+}

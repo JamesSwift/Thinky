@@ -1,0 +1,7 @@
+{
+	"id": "authorize-client",
+	"match": "/authorize-client",
+	"title": "Authorize This Device",
+	"requireAuthorizedUser": true,
+	"multiUserAuthTimeout": 60
+}
