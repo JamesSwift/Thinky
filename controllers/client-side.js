@@ -729,8 +729,6 @@ var Controller = (new function(w, d){
 				a.appendChild(document.createTextNode(priv.users[i].token.data.firstName + " " + priv.users[i].token.data.lastName));
 				users.appendChild(a);
 				numUsers++;
-
-				console.log(priv.users[i]);
 				
 				if (i === priv.activeTokenUID){
 					switchPinUser(a);
