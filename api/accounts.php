@@ -922,9 +922,17 @@ function changePassword($input, $authInfo){
         $q = $API->DB->prepare("UPDATE users SET password = :newPassword WHERE id = :id");
         $q->execute(["id"=>$user, "newPassword"=> password_hash($data['newPassword'], PASSWORD_DEFAULT, ["cost"=>12])]);
         
-        //TODO: invalidate all auth tokens
+        //Invalidate all other auth tokens (except the given ID)
+        if (isset($data['tokenID'])){
+            $req = $API->request("swdapi/invalidateAllAuthTokens", ["id"=>$data['tokenID']], $authInfo);
+        } else {
+            $req = $API->request("swdapi/invalidateAllAuthTokens", ["id"=>$data['tokenID']], $authInfo);
+        }
+        if ($req->status !== 200){
+            return $req;
+        }
         
-        return new Response( 200, []);
+        return new Response( 200, true);
 
     } catch (\Exception $e){
         return new Response( 500, ["AppError"=>[

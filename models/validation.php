@@ -427,7 +427,7 @@ function validateUserInput($data, $required=[], $authInfo=null){
 	
 	/////////////////////
 	//Basket
-	
+	/*
 	if (isset($data['basket'])){
 		
 		if (!is_array($data['basket'])){
@@ -443,7 +443,7 @@ function validateUserInput($data, $required=[], $authInfo=null){
 		}
 		
 	}
-	
+	*/
 	
 	
 	
@@ -477,7 +477,7 @@ function validateUserInput($data, $required=[], $authInfo=null){
 			}
 			
 			//Integers and IDs
-			if (in_array($id, ["id", "userID", "businessID", "addressPID", "cardID"])){
+			if (in_array($id, ["id", "userID", "businessID", "addressPID", "tokenID", "cardID"])){
 				if (is_string($val) && ctype_digit($val)){
 					$val = $data[$id] = intval($val);
 				}
