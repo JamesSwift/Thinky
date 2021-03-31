@@ -70,7 +70,7 @@
 			<?php
 
 			//Include currentView's html
-			print '<div class="view-'.$currentView["id"].'">';
+			print '<div class="view-'.$currentView["id"].(isset($currentView['requireAuthorizedUser']) && $currentView['requireAuthorizedUser']===true ? " display-none" : "").'">';
 				if (isset($currentView['html'])){
 					print $currentView['html'];
 				} else {
