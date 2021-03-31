@@ -163,32 +163,36 @@ var Controller = (new function(w, d){
 			u.loading.push("firstView loading first view");
 			u.waitForObjects([[priv, "views", w.firstView.id]], function(){
 				
-				priv.currentView = getViewObject(w.firstView.id, w.location.pathname, w.firstView.variables);
+				var fv = priv.currentView = getViewObject(w.firstView.id, w.location.pathname, w.firstView.variables);
 				priv.currentView.container = document.querySelector("#content .view-" + w.firstView.id);
 				
 				//Is this view restricted to logged in users?
-				//If a token is stored, wait for it to init then attempt to load view
 				if (priv.currentView.config 
 					&& "requireAuthorizedUser" in priv.currentView.config
 					&& priv.currentView.config.requireAuthorizedUser === true
-					&& priv.userToken===undefined //|| priv.userToken===null)	
-					&& !!pub.getStoredValue("userToken")
 				){
+					//Hide the view while we wait for authentication
+					fv.container.classList.add("display-none");
+				
+					//If a token is stored, wait for it to init then attempt to load view
+					if (priv.userToken===undefined && !!pub.getStoredValue("userToken")	){
+							var intvl = setInterval(function(){
+							
+							if (priv.userToken===undefined) return;
 						
-					var intvl = setInterval(function(){
-						
-						if (priv.userToken===undefined) return;
-					
-						priv.currentView.load(function(){
-							u.loading.pop("firstView finished (waited for userToken)");
-						});
-						clearInterval(intvl);
-						
-					}, 20);
+							priv.currentView.load(function(){
+								fv.container.classList.remove("display-none");
+								u.loading.pop("firstView finished (waited for userToken)");
+							});
+							clearInterval(intvl);
+							
+						}, 20);
+					}
 					
 				//Load the view, it will work out whether to render or errorSwitchView
 				} else {
 					priv.currentView.load(function(){
+						fv.container.classList.remove("display-none");
 						u.loading.pop("firstView finished");
 					});
 				}
