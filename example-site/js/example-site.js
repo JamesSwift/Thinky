@@ -65,14 +65,7 @@ var controller, app = (new function(){
 
 		var handler = function(response){
 			u.loading.pop();
-			if (response !== true){
-				controller.createModal(
-					'<h2>Logout</h2>'+
-					'<p>There was a problem while trying to log out. Please try again.</p>'
-				).render();
-			} else {
-				controller.navigateTo("/");
-			}
+			controller.navigateTo("/");
 		};
 
 
