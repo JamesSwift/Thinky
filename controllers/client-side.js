@@ -1611,7 +1611,16 @@ var Controller = (new function(w, d){
 					}
 				}
 			},
-			failure,
+			function(response){
+				if (uid === priv.activeTokenUID){
+					priv.activeTokenUID = null;
+					priv.activeTokenExpires = Date.now()-1000;
+				}
+				delete priv.users[uid];
+				if (typeof failure === "function"){
+					failure(response);
+				}
+			},
 			priv.users[uid].token
 		);
 		
