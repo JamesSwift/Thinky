@@ -73,6 +73,7 @@ function submit(e){
 				} else {
 					controller.multiUserLogout();
 				}
+				errorBox.innerHTML = "Your account pin has been updated. You have been logged out, please log back in to use your new pin.";
 			}
 			
 		}, 
