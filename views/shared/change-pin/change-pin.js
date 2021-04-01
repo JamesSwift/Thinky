@@ -44,30 +44,37 @@ function submit(e){
 		return;
 	}
 
+	//Find our tokenID
+	self.getAuthToken(function(token){
 	
-	u.loading.push();
-	
-	self.authenticatedApiRequest(
-		"accounts/changePin", 
-		data, 
-		function(response){
-			u.loading.pop();
-			
-			returnData = response;
-			
-			if (typeof self.variables === "object" && self.variables !== null && "showWelcome" in self.variables && self.variables.showWelcome === true){
-				self.close();	
+		//Don't invalidate our token please, just all the others
+		data.tokenID = token.id;
+
+		u.loading.push();
+		
+		self.authenticatedApiRequest(
+			"accounts/changePin", 
+			data, 
+			function(response){
+				u.loading.pop();
+				
+				returnData = response;
+				
+				if (typeof self.variables === "object" && self.variables !== null && "showWelcome" in self.variables && self.variables.showWelcome === true){
+					self.close();	
+				}
+				form.reset();
+				
+				errorBox.innerHTML = "Your account pin has been updated. All other sessions have been logged out.";
+				
+			}, 
+			function(response){
+				passwordContainer.classList.remove("display-none");
+				u.standardFailureHandler(errorBox, form)(response);
 			}
-			form.reset();
-			
-			errorBox.innerHTML = "Your account pin has been updated.";
-			
-		}, 
-		function(response){
-			passwordContainer.classList.remove("display-none");
-			u.standardFailureHandler(errorBox, form)(response);
-		}
-	);
+		);
+
+	});
 }        
 
 

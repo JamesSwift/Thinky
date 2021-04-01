@@ -2,8 +2,7 @@
 
 var self = this,
 	form = this.container.querySelector("form"),
-	errorBox = self.container.querySelector(".detailsError"),
-	tokenID = null;
+	errorBox = self.container.querySelector(".detailsError");
 
 	
 //Link form inputs to validateData

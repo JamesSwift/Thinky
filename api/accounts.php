@@ -993,9 +993,19 @@ function changePin($input, $authInfo){
         $salt = hash_hmac("sha256", strtolower($userDetails['email']), $data['currentPassword']);
         $hash = hash_hmac("sha256", $pinHash, $salt);
          
-        //Change the password
+        //Change the pin
         $q = $API->DB->prepare("UPDATE users SET pin = :pin WHERE id = :id");
         $q->execute(["id"=>$user, "pin"=> $hash]);
+
+        //Invalidate all other auth tokens (except the given ID)
+        if (isset($data['tokenID'])){
+            $req = $API->request("swdapi/invalidateAllAuthTokens", ["id"=>$data['tokenID']], $authInfo);
+        } else {
+            $req = $API->request("swdapi/invalidateAllAuthTokens", ["id"=>$data['tokenID']], $authInfo);
+        }
+        if ($req->status !== 200){
+            return $req;
+        }
         
         return new Response( 200, ["hash"=>$hash]);
 
