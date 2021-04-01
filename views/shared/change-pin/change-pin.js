@@ -69,7 +69,11 @@ function submit(e){
 				errorBox.innerHTML = "Your account pin has been updated.";
 			} else {
 				if ("logout" in app){
-					app.logout();
+					controller.api.logout();
+					controller.createModal(
+						'<h2>PIN Updated</h2>'+
+						'<p>Your account pin has been updated. You have now been logged out, please log back in to use your new pin.</p>'
+					).render();
 				} else {
 					controller.multiUserLogout();
 				}
