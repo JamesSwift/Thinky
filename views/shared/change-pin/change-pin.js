@@ -65,9 +65,14 @@ function submit(e){
 			}
 			form.reset();
 			
-			errorBox.innerHTML = "Your account pin has been updated. You will need to log in again before you can use it.";
-			if (tokenID in data){
+			if ("tokenID" in data){
 				errorBox.innerHTML = "Your account pin has been updated.";
+			} else {
+				if ("logout" in app){
+					app.logout();
+				} else {
+					controller.multiUserLogout();
+				}
 			}
 			
 		}, 

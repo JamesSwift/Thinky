@@ -1596,12 +1596,12 @@ var Controller = (new function(w, d){
 				"id": priv.users[uid].token.id
 			}, 
 			function(response){
+				if (uid === priv.activeTokenUID){
+					priv.activeTokenUID = null;
+					priv.activeTokenExpires = Date.now()-1000;
+				}
+				delete priv.users[uid];
 				if (response === true){
-					if (uid === priv.activeTokenUID){
-						priv.activeTokenUID = null;
-						priv.activeTokenExpires = Date.now()-1000;
-					}
-					delete priv.users[uid];
 					if (typeof success === "function"){
 						success(response);
 					}
