@@ -44,37 +44,39 @@ function submit(e){
 		return;
 	}
 
-	//Find our tokenID
-	self.getAuthToken(function(token){
 	
-		//Don't invalidate our token please, just all the others
-		data.tokenID = token.id;
+	//Don't invalidate our token please, just all the others
+	if ("tokenID" in self.variables && typeof self.variables.tokenID === "number"){
+		data.tokenID = self.variables.tokenID
+	}
 
-		u.loading.push();
-		
-		self.authenticatedApiRequest(
-			"accounts/changePin", 
-			data, 
-			function(response){
-				u.loading.pop();
-				
-				returnData = response;
-				
-				if (typeof self.variables === "object" && self.variables !== null && "showWelcome" in self.variables && self.variables.showWelcome === true){
-					self.close();	
-				}
-				form.reset();
-				
-				errorBox.innerHTML = "Your account pin has been updated. All other sessions have been logged out.";
-				
-			}, 
-			function(response){
-				passwordContainer.classList.remove("display-none");
-				u.standardFailureHandler(errorBox, form)(response);
+	u.loading.push();
+	
+	self.authenticatedApiRequest(
+		"accounts/changePin", 
+		data, 
+		function(response){
+			u.loading.pop();
+			
+			returnData = response;
+			
+			if (typeof self.variables === "object" && self.variables !== null && "showWelcome" in self.variables && self.variables.showWelcome === true){
+				self.close();	
 			}
-		);
+			form.reset();
+			
+			errorBox.innerHTML = "Your account pin has been updated. You will need to log in again before you can use it.";
+			if (tokenID in data){
+				errorBox.innerHTML = "Your account pin has been updated.";
+			}
+			
+		}, 
+		function(response){
+			passwordContainer.classList.remove("display-none");
+			u.standardFailureHandler(errorBox, form)(response);
+		}
+	);
 
-	});
 }        
 
 

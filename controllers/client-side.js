@@ -614,7 +614,8 @@ var Controller = (new function(w, d){
 								if (!("data" in token) || typeof token.data !== "object" || token.data === null || token.data.pin === null){
 									pub.openViewAsModal("change-pin", {
 										currentPassword: password,
-										showWelcome: true
+										showWelcome: true,
+										tokenID: token.id
 									}, function(response){
 										if (token['uid'] in priv.users){
 											priv.users[token['uid']].token.data.pin = response.hash;
